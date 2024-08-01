@@ -1492,7 +1492,7 @@ animeDict = {
 
 
           entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:10%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + "transparent" + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;' onmouseover='loadImg(" + i + ")''>"
-          entryImageTmp = entryImageContainer + "<span class='tooltiptext'>" + animeDict[animeKey].Name + "<br>(" + animeDict[animeKey].Score + ")" + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>";
+          entryImageTmp = entryImageContainer + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>";
           entryImages = entryImages + entryImageTmp;
         }
         document.getElementById("entryHolder").innerHTML = entryImages;
