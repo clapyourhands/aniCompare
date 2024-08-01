@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 
 <style>
+.filter-pink{
+    filter: brightness(0) saturate(100%) invert(67%) sepia(100%) saturate(2710%) hue-rotate(311deg) brightness(106%) contrast(87%);
+}
+.filter-red{
+    filter: brightness(0) saturate(100%) invert(41%) sepia(70%) saturate(761%) hue-rotate(313deg) brightness(110%) contrast(115%);
+}
+.filter-darkred{
+    filter: brightness(0) saturate(100%) invert(22%) sepia(93%) saturate(4348%) hue-rotate(343deg) brightness(78%) contrast(94%);
+}
+.filter-orange{
+    filter: brightness(0) saturate(100%) invert(72%) sepia(27%) saturate(3082%) hue-rotate(325deg) brightness(103%) contrast(101%);
+}
+.filter-yellow{
+    filter: brightness(0) saturate(100%) invert(81%) sepia(80%) saturate(1256%) hue-rotate(325deg) brightness(103%) contrast(102%);
+}
+.filter-gold{
+  filter: invert(82%) sepia(34%) saturate(3129%) hue-rotate(1deg) brightness(105%) contrast(110%);
+}
+.filter-lightyellow{
+    filter: brightness(0) saturate(100%) invert(96%) sepia(29%) saturate(1275%) hue-rotate(331deg) brightness(102%) contrast(114%);
+}
+.filter-lightgreen{
+    filter: brightness(0) saturate(100%) invert(68%) sepia(61%) saturate(538%) hue-rotate(37deg) brightness(93%) contrast(92%);
+}
+.filter-green{
+    filter: brightness(0) saturate(100%) invert(61%) sepia(35%) saturate(560%) hue-rotate(92deg) brightness(89%) contrast(81%);
+}
+.filter-blue{
+    filter: brightness(0) saturate(100%) invert(38%) sepia(17%) saturate(5632%) hue-rotate(179deg) brightness(97%) contrast(81%);
+}
+.filter-darkblue{
+    filter: brightness(0) saturate(100%) invert(44%) sepia(7%) saturate(5536%) hue-rotate(182deg) brightness(82%) contrast(79%);
+}
+.filter-lightpurple{
+    filter: brightness(0) saturate(100%) invert(65%) sepia(8%) saturate(1308%) hue-rotate(223deg) brightness(95%) contrast(87%);
+}
+.filter-purple{
+    filter: brightness(0) saturate(100%) invert(30%) sepia(62%) saturate(517%) hue-rotate(223deg) brightness(95%) contrast(87%);
+}
+.filter-magenta{
+    filter: brightness(0) saturate(100%) invert(46%) sepia(23%) saturate(963%) hue-rotate(282deg) brightness(98%) contrast(83%);
+}
+
 .searchbox {
   overflow: hidden;
   background-color: rgb(21,31,46);
@@ -38,8 +81,8 @@
 <body style="background-color:rgb(11, 22, 34);margin:45px 0px 0px 0px" class="">
 
   <div class="searchbox" id="searchdiv">
-    <input type="text" id="searchtext" placeholder="Search...">
-    <input id="searchbutton" type="button" value="Go" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px" />
+    <input type="text" id="searchtext" placeholder="Anilist username">
+    <input id="searchbutton" type="button" value="Search" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px" />
   </div>
 
   <div id='gallery' class='imageGallery' style='line-height: 0px; padding: 0; margin: 0;'>
@@ -1193,27 +1236,34 @@ animeDict = {
           }
           else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take
             colorCode = "red";
+            classOption = "filter-red";
           }
           else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2) { //you agree with the majority, clap's hot take
             colorCode = "purple"
+            classOption = "filter-purple";
           }
           else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
             colorCode = "white"
           }
           else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
             colorCode = "yellow"
+            classOption = "filter-yellow";
           }
           else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
             colorCode = "orange"
+            classOption = "filter-orange";
           }
           else if (avgScore - yourScore < -2 && avgScore - clapScore < -2 ) { //hot take, you both agree it's good
             colorCode = "gold"
+            classOption = "filter-gold";
           }
           else if (avgScore - yourScore > 2 && avgScore - clapScore  > 2 ) { //hot take, you both agree it's bad
             colorCode = "cyan"
+            classOption = "filter-lightblue";
           }
           else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore)  > 2 &&  Math.abs(clapScore - yourScore) > 4) { //hot take, and you disagree
             colorCode = "pink"
+            classOption = "filter-pink";
           }
 
           diffBox = "<div style='color:white;display:block;width:60%;font-family:Roboto'><h2>" + animeDict[animeKey].Name + "</h2><br><p style='color:" + colorCode + "'>" + diffScoreArray[i][1] + "</p><br><p>Your score: " + yourScore + "</p><br><p>clap's score: " + clapScore + "</p><br><p>Average: " + avgScore + "</p></div>"
