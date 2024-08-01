@@ -4,6 +4,8 @@
 .filter-pink{
     filter: brightness(0) saturate(100%) invert(67%) sepia(100%) saturate(2710%) hue-rotate(311deg) brightness(106%) contrast(87%);
 }
+.filter-white{
+}
 .filter-red{
     filter: brightness(0) saturate(100%) invert(41%) sepia(70%) saturate(761%) hue-rotate(313deg) brightness(110%) contrast(115%);
 }
@@ -1233,6 +1235,7 @@ animeDict = {
 
           if (yourScore == 0 || clapScore == 0) {
             colorCode="gray";
+            classOption = "filter-white";
           }
           else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take
             colorCode = "red";
@@ -1244,10 +1247,11 @@ animeDict = {
           }
           else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
             colorCode = "white"
+            classOption = "filter-white";
           }
           else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
             colorCode = "yellow"
-            classOption = "filter-yellow";
+            classOption = "filter-lightyellow";
           }
           else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
             colorCode = "orange"
