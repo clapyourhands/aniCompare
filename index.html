@@ -22,7 +22,7 @@
   filter: invert(82%) sepia(34%) saturate(3129%) hue-rotate(1deg) brightness(105%) contrast(110%);
 }
 .filter-lightyellow{
-    filter: brightness(0) saturate(100%) invert(96%) sepia(29%) saturate(1275%) hue-rotate(331deg) brightness(102%) contrast(114%);
+  filter: invert(92%) sepia(2%) saturate(2120%) hue-rotate(1deg) brightness(107%) contrast(106%);
 }
 .filter-lightgreen{
     filter: brightness(0) saturate(100%) invert(68%) sepia(61%) saturate(538%) hue-rotate(37deg) brightness(93%) contrast(92%);
@@ -72,6 +72,44 @@
   font-size: 18px;
   font-family:Arial;
 }
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: rgb(11, 22, 34);
+  font-family:"Roboto";
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid rgb(139, 160, 178, 0.25);
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: rgb(21,31,46);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
 
 <html>
@@ -85,13 +123,53 @@
   <div class="searchbox" id="searchdiv">
     <input type="text" id="searchtext" placeholder="Anilist username">
     <input id="searchbutton" type="button" value="Search" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px" />
+    <button id="legendBtn" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px;float: right; margin-right:1%;">Legend</button>
   </div>
+
+  <div id="legendModal" class="modal">
+    <div class="modal-content">
+    <span class="close">&times;</span>
+    <p style="color:gold">We both share a hot take and think this anime is better than most people think.</p>
+    <p style="color:cyan">We both share a hot take and think this anime is worse than most people think.</p>
+    <p style="color:pink">We both have a hot take on this anime, but in opposite ways.</p>
+    <p style="color:red">You have a hot take regarding this anime.</p>
+    <p style="color:purple">I have a hot take regarding this anime.</p>
+    <p style="color:white">We both agree with the majority regarding this anime.</p>
+    <p style="color:lightyellow">We slightly disagree regarding this anime.</p>
+    <p style="color:orange">We somewhat disagree regarding this anime.</p>
+  </div>
+</div>
 
   <div id='gallery' class='imageGallery' style='line-height: 0px; padding: 0; margin: 0;'>
     <div style='display:flex; flex-flow:row wrap; margin-left:0%; margin-right:0%;' id='entryHolder'></div>
   </div>
 
 <script>
+
+var modal = document.getElementById("legendModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("legendBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 animeDict = {
     "Pokemon": { ALID: 527, Name: "Pokémon", Score: 7.5, Genre: "Adventure", Related: [527,1564,528,1117,1118,1119,1120,4874,10916,10917,20159,97635,98298,112152,106287,1709,1525,138699,110639,1565,1121,1122,1526,1527,2201,5844,5845,20956,4910,2363,2842,6877,11009,11019,5526,4792,6385,4793,4794,4795,9107,19291,2847,4026,6178,6555,7550,7695,8709,11069,5256,6275,8438,10302,5529,14093,9917,10740,11853,14123,20644,20683,21266,21356,105616,21304,20948,20570,17115,12671,126294,14935,21271,21270,21651,97634,106499,17873,13799,112153,100744,16680,19099,113932,119964,142794,155767,145813,158870,114564,158869,169404,16678,125308,158871,169824,162147,163619,167418,168092,170535,171346], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/b527-cFxpkJI4026c.png" },
@@ -1290,7 +1368,7 @@ animeDict = {
               classOption = "filter-white";
             }
             else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
-              colorCode = "yellow"
+              colorCode = "lightyellow"
               classOption = "filter-lightyellow";
             }
             else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
