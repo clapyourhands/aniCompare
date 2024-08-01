@@ -1107,9 +1107,8 @@ animeDict = {
     "MasterKeaton": { ALID: 1483, Name: "MASTER Keaton", Score: 7.5, Genre: "Mystery", Related: [1483,1910], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1483-LXbJYimBXUmF.png" },
     "BeastsArs": { ALID: 155089, Name: "GIANT BEASTS OF ARS", Score: 6, Genre: "Adventure", Related: [155089], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx155089-I5zYFNvWua57.png" },
     "MinamiKe": { ALID: 2963, Name: "Minami-ke", Score: 6.5, Genre: "Comedy", Related: [2963,3225,5162,14575,14511,20221,179088,5713], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2963-JxvWsnzcs4IP.png" },
-
-    "WeddingRings": { ALID: 160389, Name: "Tales of Wedding Rings", Score: 0, Genre: "Romance", Related: [160389,176298], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx160389-2f6SosbyUpxX.jpg" },
-    "ClockworkPlanet": { ALID: 21563, Name: "Clockwork Planet", Score: 0, Genre: "Sci-Fi", Related: [21563], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21563-TNf6EshJCy5l.png" },
+    "WeddingRings": { ALID: 160389, Name: "Tales of Wedding Rings", Score: 5, Genre: "Romance", Related: [160389,176298], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx160389-2f6SosbyUpxX.jpg" },
+    "ClockworkPlanet": { ALID: 21563, Name: "Clockwork Planet", Score: 6, Genre: "Sci-Fi", Related: [21563], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21563-TNf6EshJCy5l.png" },
 
 
     "Yatagarasu": { ALID: 170503, Name: "YATAGARASU: The Raven Does Not Choose Its Master", Score: 0, Genre: "Fantasy", Related: [170503], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170503-PCr24JL8F8f9.jpg" },
@@ -1313,132 +1312,191 @@ animeDict = {
       diffScoreDict={};
       avgScoreDict={};
       userScoreDict={};
-      await getShared(searchString);
+      if (searchString != "clapyourhands") {
+        await getShared(searchString);
 
-      iconList = [];
-      idList = [];
-      imageLoaded = [];
-      diffScoreArray = Object.entries(diffScoreDict).sort(function(a, b) {
-          if (a[1] === null) {
-              return 1;
-          }
-          if (b[1] === null) {
-              return -1;
-          }
-          else {
-            return (Math.abs(b[1]) - Math.abs(a[1]));
-          }
-      });
+        iconList = [];
+        idList = [];
+        imageLoaded = [];
+        diffScoreArray = Object.entries(diffScoreDict).sort(function(a, b) {
+            if (a[1] === null) {
+                return 1;
+            }
+            if (b[1] === null) {
+                return -1;
+            }
+            else {
+              return (Math.abs(b[1]) - Math.abs(a[1]));
+            }
+        });
 
-        yourHotTakes = [];
-        myHotTakes = [];
-        ourHotTakesGood = [];
-        ourHotTakesBad = [];
-        otherTakes = [];
+          yourHotTakes = [];
+          myHotTakes = [];
+          ourHotTakesGood = [];
+          ourHotTakesBad = [];
+          otherTakes = [];
 
-        for (i = 0; i < diffScoreArray.length; i++) {
-          yourScore = userScoreDict[diffScoreArray[i][0]];
-          clapScore = personalScoreDict[diffScoreArray[i][0]];
-          avgScore = avgScoreDict[diffScoreArray[i][0]];
-          if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2 && (yourScore != 0 && clapScore != 0)) {
-            yourHotTakes.push(diffScoreArray[i][0])
+          for (i = 0; i < diffScoreArray.length; i++) {
+            yourScore = userScoreDict[diffScoreArray[i][0]];
+            clapScore = personalScoreDict[diffScoreArray[i][0]];
+            avgScore = avgScoreDict[diffScoreArray[i][0]];
+            if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2 && (yourScore != 0 && clapScore != 0)) {
+              yourHotTakes.push(diffScoreArray[i][0])
+            }
+            else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2 && (yourScore != 0 && clapScore != 0)) {
+              myHotTakes.push(diffScoreArray[i][0])
+            }
+            else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 && (yourScore != 0 && clapScore != 0)) {
+              ourHotTakesGood.push(diffScoreArray[i][0])
+            }
+            else if (avgScore - yourScore >= 2 && avgScore - clapScore  >= 2 && (yourScore != 0 && clapScore != 0)) {
+              ourHotTakesBad.push(diffScoreArray[i][0])
+            }
+            else {
+              otherTakes.push(diffScoreArray[i][0])
+            }
           }
-          else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2 && (yourScore != 0 && clapScore != 0)) {
-            myHotTakes.push(diffScoreArray[i][0])
-          }
-          else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 && (yourScore != 0 && clapScore != 0)) {
-            ourHotTakesGood.push(diffScoreArray[i][0])
-          }
-          else if (avgScore - yourScore >= 2 && avgScore - clapScore  >= 2 && (yourScore != 0 && clapScore != 0)) {
-            ourHotTakesBad.push(diffScoreArray[i][0])
-          }
-          else {
-            otherTakes.push(diffScoreArray[i][0])
-          }
-        }
 
-        console.log(diffScoreArray.length)
-        if (diffScoreArray.length == 0) {
-          listErrorModal.style.display="block";
-        }
-        allTakes = [ourHotTakesGood, ourHotTakesBad, yourHotTakes, myHotTakes, otherTakes]
-
-        for (h = 0; h < allTakes.length; h++) {
-          for (i = 0; i < allTakes[h].length/*100*/; i++) {
-            iconName = Object.keys(animeDict).find(key =>
-                animeDict[key].ALID == allTakes[h][i]);
-            iconList.push(iconName);
-            idList.push(allTakes[h][i]);
+          console.log(diffScoreArray.length)
+          if (diffScoreArray.length == 0) {
+            listErrorModal.style.display="block";
           }
-        }
+          allTakes = [ourHotTakesGood, ourHotTakesBad, yourHotTakes, myHotTakes, otherTakes]
 
-        var entryImages = "";
-        var entryImageLink = "";
-        var classOption = "";
-          for (i = 0; i < iconList.length; i++) {
+          for (h = 0; h < allTakes.length; h++) {
+            for (i = 0; i < allTakes[h].length/*100*/; i++) {
+              iconName = Object.keys(animeDict).find(key =>
+                  animeDict[key].ALID == allTakes[h][i]);
+              iconList.push(iconName);
+              idList.push(allTakes[h][i]);
+            }
+          }
+
+          var entryImages = "";
+          var entryImageLink = "";
+          var classOption = "";
+            for (i = 0; i < iconList.length; i++) {
+              animeKey = iconList[i];
+              entryImageLink = "icons/".concat(animeKey,"Square.svg");
+              iconColor = "transparent"//hexColors[genreList.indexOf(diffScoreDict[animeKey].Genre)];
+
+              yourScore = userScoreDict[animeDict[animeKey].ALID];
+              clapScore = personalScoreDict[animeDict[animeKey].ALID];
+              avgScore = avgScoreDict[animeDict[animeKey].ALID];
+              plusMinus = "+";
+              diffScore = diffScoreDict[animeDict[animeKey].ALID];
+              if (diffScore < 0) {
+                plusMinus = "-";
+              }
+              diffScore = Math.abs(diffScore)
+              if (yourScore == 0 || clapScore == 0) {
+                plusMinus = "";
+                diffScore = null;
+              }
+              colorCode = "gray";
+
+              if (yourScore == 0 || clapScore == 0) {
+                colorCode="gray";
+                classOption = "filter-white";
+              }
+              else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take
+                colorCode = "red";
+                classOption = "filter-red";
+              }
+              else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2) { //you agree with the majority, clap's hot take
+                colorCode = "purple"
+                classOption = "filter-purple";
+              }
+              else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 ) { //hot take, you both agree it's good
+                colorCode = "gold"
+                classOption = "filter-gold";
+              }
+              else if (avgScore - yourScore >= 2 && avgScore - clapScore  >= 2 ) { //hot take, you both agree it's bad
+                colorCode = "cyan"
+                classOption = "filter-lightblue";
+              }
+              else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore)  > 2 &&  Math.abs(clapScore - yourScore) > 4) { //hot take, and you disagree
+                colorCode = "pink"
+                classOption = "filter-pink";
+              }
+              else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
+                colorCode = "white"
+                classOption = "filter-white";
+              }
+              else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
+                colorCode = "tan"
+                classOption = "filter-tan";
+              }
+              else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
+                colorCode = "orange"
+                classOption = "filter-orange";
+              }
+
+              diffBox = "<div style='color:white;display:block;width:60%;font-family:Roboto'><h2>" + animeDict[animeKey].Name + "</h2><br><p style='color:" + colorCode + "'>" + plusMinus + diffScore + "</p><br><p>Your score: " + yourScore + "</p><br><p>clap's score: " + clapScore + "</p><br><p>Average: " + avgScore + "</p></div>"
+
+            entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:20%;height: 0;padding-bottom: 20%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + iconColor + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;'>"
+            entryImageTmp = entryImageContainer + /*"<span class='tooltiptext'>" + animeDict[animeKey].Name + "<br>(" + animeDict[animeKey].Score + ")" + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + */ "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>" + diffBox + "<div><img style='position:relative;top: 50%;transform: translateY(-50%);' src='" + animeDict[animeKey].Img + "'width=100px></div>";
+            entryImages = entryImages + entryImageTmp;
+          }
+        document.getElementById("entryHolder").innerHTML = entryImages;
+      }
+      else {
+        iconList = [];
+        idList = [];
+        imageLoaded = [];
+        	for (i = 0; i < Object.keys(animeDict).length/*100*/; i++) {
+            iconList.push(Object.keys(animeDict)[i]);
+            idList.push(animeDict[Object.keys(animeDict)[i]].ALID);
+          }
+
+          //shuffleArray(iconList);
+
+        	var entryImages = "";
+        	var entryImageLink = "";
+        	for (i = 0; i < iconList.length; i++) {
             animeKey = iconList[i];
-            entryImageLink = "icons/".concat(animeKey,"Square.svg");
-            iconColor = "transparent"//hexColors[genreList.indexOf(diffScoreDict[animeKey].Genre)];
+        		entryImageLink = "/Volumes/NO NAME/SVGVectors/".concat(animeKey,"Square.svg");
+            //iconColor = "black";
 
-            yourScore = userScoreDict[animeDict[animeKey].ALID];
-            clapScore = personalScoreDict[animeDict[animeKey].ALID];
-            avgScore = avgScoreDict[animeDict[animeKey].ALID];
-            plusMinus = "+";
-            diffScore = diffScoreDict[animeDict[animeKey].ALID];
-            if (diffScore < 0) {
-              plusMinus = "-";
-            }
-            diffScore = Math.abs(diffScore)
-            if (yourScore == 0 || clapScore == 0) {
-              plusMinus = "";
-              diffScore = null;
-            }
-            colorCode = "gray";
+            classOption = "";
+            //color icon by score
 
-            if (yourScore == 0 || clapScore == 0) {
-              colorCode="gray";
-              classOption = "filter-white";
+            if (animeDict[animeKey].Score <= 5 && animeDict[animeKey].Score != 0) {
+              classOption = "filter-darkred";
             }
-            else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take
-              colorCode = "red";
-              classOption = "filter-red";
-            }
-            else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2) { //you agree with the majority, clap's hot take
-              colorCode = "purple"
-              classOption = "filter-purple";
-            }
-            else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 ) { //hot take, you both agree it's good
-              colorCode = "gold"
-              classOption = "filter-gold";
-            }
-            else if (avgScore - yourScore >= 2 && avgScore - clapScore  >= 2 ) { //hot take, you both agree it's bad
-              colorCode = "cyan"
-              classOption = "filter-lightblue";
-            }
-            else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore)  > 2 &&  Math.abs(clapScore - yourScore) > 4) { //hot take, and you disagree
-              colorCode = "pink"
+            else if (animeDict[animeKey].Score == 5.5) {
               classOption = "filter-pink";
             }
-            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
-              colorCode = "white"
-              classOption = "filter-white";
+            else if (animeDict[animeKey].Score == 7.5) {
+              classOption = "filter-blue";
             }
-            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
-              colorCode = "tan"
-              classOption = "filter-tan";
+            else if (animeDict[animeKey].Score == 8) {
+              classOption = "filter-darkblue";
             }
-            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
-              colorCode = "orange"
-              classOption = "filter-orange";
+            else if (animeDict[animeKey].Score == 8.5) {
+              classOption = "filter-lightgreen";
+            }
+            else if (animeDict[animeKey].Score == 9) {
+              classOption = "filter-green";
+            }
+            else if (animeDict[animeKey].Score == 9.5) {
+              classOption = "filter-lightyellow";
+            }
+            else if (animeDict[animeKey].Score == 10) {
+              classOption = "filter-yellow";
             }
 
-            diffBox = "<div style='color:white;display:block;width:60%;font-family:Roboto'><h2>" + animeDict[animeKey].Name + "</h2><br><p style='color:" + colorCode + "'>" + plusMinus + diffScore + "</p><br><p>Your score: " + yourScore + "</p><br><p>clap's score: " + clapScore + "</p><br><p>Average: " + avgScore + "</p></div>"
 
-          entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:20%;height: 0;padding-bottom: 20%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + iconColor + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;'>"
-          entryImageTmp = entryImageContainer + /*"<span class='tooltiptext'>" + animeDict[animeKey].Name + "<br>(" + animeDict[animeKey].Score + ")" + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + */ "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>" + diffBox + "<div><img style='position:relative;top: 50%;transform: translateY(-50%);' src='" + animeDict[animeKey].Img + "'width=100px></div>";
+            //color icon by genre
+            //classOption = classList[genreList.indexOf(animeDict[animeKey].Genre)];
+
+
+          entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:10%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + "transparent" + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;' onmouseover='loadImg(" + i + ")''>"
+          entryImageTmp = entryImageContainer + "<span class='tooltiptext'>" + animeDict[animeKey].Name + "<br>(" + animeDict[animeKey].Score + ")" + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>";
           entryImages = entryImages + entryImageTmp;
         }
-      document.getElementById("entryHolder").innerHTML = entryImages;
+        document.getElementById("entryHolder").innerHTML = entryImages;
+      }
     }
 
 
