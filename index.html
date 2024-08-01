@@ -125,13 +125,18 @@
 
   <div class="searchbox" id="searchdiv">
     <input type="text" id="searchtext" placeholder="Anilist username">
-    <input id="searchbutton" type="button" value="Search" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px" />
+    <input id="searchbutton" type="button" value="Search" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px;" />
+
     <button id="legendBtn" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px;float: right; margin-right:1%;">Legend</button>
+    <div style="display:inline-block;font-family:'Roboto'; float:right; margin-right:1%;">
+      <p style="display:inline-block;color:rgb(139, 160, 178);text-align: center;"><i>Compare your Anilist with <a style="color:rgb(129, 160, 198);text-decoration:none" href="https://anilist.co/user/clapyourhands/">clapyourhands</a></i></p>
+    </div>
   </div>
+
 
   <div id="legendModal" class="modal">
     <div class="modal-content">
-    <span class="close">&times;</span>
+    <span id="legendModalClose" class="close">&times;</span>
     <p style="color:gold">We both share a hot take and think this anime is better than most people think.</p>
     <p style="color:cyan">We both share a hot take and think this anime is worse than most people think.</p>
     <p style="color:pink">We both have a hot take on this anime, but in opposite ways.</p>
@@ -143,6 +148,20 @@
   </div>
 </div>
 
+<div id="noAccountFoundError" class="modal">
+  <div class="modal-content">
+  <span id="accountErrorClose" class="close">&times;</span>
+  <p style="color:rgb(139, 160, 178)">No AniList account found</p>
+</div>
+</div>
+
+<div id="noListFoundError" class="modal">
+  <div class="modal-content">
+  <span id="listErrorClose" class="close">&times;</span>
+  <p style="color:rgb(139, 160, 178)">No non-custom lists found; the AniList account needs its default lists to be visible in order to be read.</p>
+</div>
+</div>
+
   <div id='gallery' class='imageGallery' style='line-height: 0px; padding: 0; margin: 0;'>
     <div style='display:flex; flex-flow:row wrap; margin-left:0%; margin-right:0%;' id='entryHolder'></div>
   </div>
@@ -150,12 +169,16 @@
 <script>
 
 var modal = document.getElementById("legendModal");
+var accountErrorModal = document.getElementById("noAccountFoundError");
+var listErrorModal = document.getElementById("noListFoundError");
 
 // Get the button that opens the modal
 var btn = document.getElementById("legendBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
+var span1 = document.getElementsByClassName("close")[1];
+var span2 = document.getElementsByClassName("close")[2];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
@@ -166,11 +189,19 @@ btn.onclick = function() {
 span.onclick = function() {
   modal.style.display = "none";
 }
+span1.onclick = function() {
+  accountErrorModal.style.display = "none";
+}
+span2.onclick = function() {
+  listErrorModal.style.display = "none";
+}
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target == modal || event.target == accountErrorModal || event.target == listErrorModal) {
     modal.style.display = "none";
+    accountErrorModal.style.display = "none";
+    listErrorModal.style.display = "none";
   }
 }
 
@@ -862,7 +893,7 @@ animeDict = {
     "GodKnows": { ALID: 8525, Name: "The World God Only Knows", Score: 6, Genre: "Romance", Related: [8525, 9675, 10080, 17725, 10805, 15117, 16706], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx8525-qakD1tUOk1Zu.png" },
     "SpeedRacer": { ALID: 1445, Name: "Speed Racer", Score: 6, Genre: "Sports", Related: [1445, 3571, 4905], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/1445.jpg" },
     "Beyblade": { ALID: 288, Name: "Beyblade", Score: 5.5, Genre: "Action", Related: [288, 1669, 5962, 136668, 13231, 21236, 101115, 108853, 116786, 130253, 165159, 166062, 1668, 1670, 8410, 138985, 10370, 136110, 98289, 8245, 102934], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/b288-QLBdXz8n34yP.png" },
-    "Kamikatsu": { ALID: 148048, Name: "KamiKatsu: Working for God in a Godless World", Score: 4, Genre: "Comedy", Related: [148048], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx148048-IaEk51Wtu07L.jpg" },
+    "KamiKatsu": { ALID: 148048, Name: "KamiKatsu: Working for God in a Godless World", Score: 4, Genre: "Comedy", Related: [148048], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx148048-IaEk51Wtu07L.jpg" },
     "Senryu": { ALID: 106051, Name: "Senryu Girl", Score: 7.5, Genre: "Romance", Related: [106051], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx106051-GanZefWWhRLa.jpg" },
     "Arte": { ALID: 110547, Name: "Arte", Score: 7, Genre: "Slice of Life", Related: [110547], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx110547-TjB8wJRdnSaw.jpg" },
     "BanishedParty": { ALID: 126213, Name: "Banished from the Hero’s Party, I Decided to Live a Quiet Life in the Countryside", Score: 5.5, Genre: "Fantasy", Related: [126213, 156131], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx126213-cXF3hsCcOipI.jpg" },
@@ -1193,6 +1224,10 @@ animeDict = {
 
        responseEdges = response.data;
 
+       if (responseEdges.MediaListCollection == null) {
+         accountErrorModal.style.display="block";
+       }
+
        for (f=0; f<responseEdges.MediaListCollection.lists.length; f++) {
          if (!responseEdges.MediaListCollection.lists[f].isCustomList && responseEdges.MediaListCollection.lists[f].name != "Planning") {
            for (g=0; g<responseEdges.MediaListCollection.lists[f].entries.length; g++) {
@@ -1320,6 +1355,9 @@ animeDict = {
         }
 
         console.log(diffScoreArray.length)
+        if (diffScoreArray.length == 0) {
+          listErrorModal.style.display="block";
+        }
         allTakes = [ourHotTakesGood, ourHotTakesBad, yourHotTakes, myHotTakes, otherTakes]
 
         for (h = 0; h < allTakes.length; h++) {
@@ -1366,18 +1404,6 @@ animeDict = {
               colorCode = "purple"
               classOption = "filter-purple";
             }
-            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
-              colorCode = "white"
-              classOption = "filter-white";
-            }
-            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
-              colorCode = "tan"
-              classOption = "filter-tan";
-            }
-            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
-              colorCode = "orange"
-              classOption = "filter-orange";
-            }
             else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 ) { //hot take, you both agree it's good
               colorCode = "gold"
               classOption = "filter-gold";
@@ -1389,6 +1415,18 @@ animeDict = {
             else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore)  > 2 &&  Math.abs(clapScore - yourScore) > 4) { //hot take, and you disagree
               colorCode = "pink"
               classOption = "filter-pink";
+            }
+            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
+              colorCode = "white"
+              classOption = "filter-white";
+            }
+            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
+              colorCode = "tan"
+              classOption = "filter-tan";
+            }
+            else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
+              colorCode = "orange"
+              classOption = "filter-orange";
             }
 
             diffBox = "<div style='color:white;display:block;width:60%;font-family:Roboto'><h2>" + animeDict[animeKey].Name + "</h2><br><p style='color:" + colorCode + "'>" + plusMinus + diffScore + "</p><br><p>Your score: " + yourScore + "</p><br><p>clap's score: " + clapScore + "</p><br><p>Average: " + avgScore + "</p></div>"
