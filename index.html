@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 
+<style>
+.searchbox {
+  overflow: hidden;
+  background-color: rgb(21,31,46);
+  position:fixed;
+  color: rgb(139, 160, 178);
+  width:100%;
+  top: 0;
+  z-index: 100;
+}
+
+::placeholder {
+    color: rgb(139, 160, 178);
+}
+
+.searchbox input[type=text], label, select {
+  float: left;
+  background-color: rgb(21,31,46);
+  color: rgb(139, 160, 178);
+  padding: 6px;
+  border-color:rgb(139, 160, 178, 0.25);
+  border-style:solid;
+  box-shadow: none;
+  margin: 6px;
+  font-size: 18px;
+  font-family:Arial;
+}
+</style>
+
 <html>
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playwrite+US+Trad:wght@100..400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
-<body style="background-color:rgb(11, 22, 34);margin:45px 0px 0px 0px">
+<body style="background-color:rgb(11, 22, 34);margin:45px 0px 0px 0px" class="">
 
   <div class="searchbox" id="searchdiv">
     <input type="text" id="searchtext" placeholder="Search...">
-    <input id="searchbutton" type="button" value="" onclick="searchUser();" />
+    <input id="searchbutton" type="button" value="Go" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px" />
   </div>
 
   <div id='gallery' class='imageGallery' style='line-height: 0px; padding: 0; margin: 0;'>
