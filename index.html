@@ -1448,11 +1448,11 @@ animeDict = {
                   colorCode="gray";
                   classOption = "filter-white";
                 }
-                else if (avgScore - yourScore > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take (bad)
+                else if (avgScore - yourScore < -2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take (bad)
                   colorCode = "green";
                   classOption = "filter-green";
                 }
-                else if (avgScore - yourScor < -2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take (bad)
+                else if (avgScore - yourScore > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take (bad)
                   colorCode = "red";
                   classOption = "filter-red";
                 }
