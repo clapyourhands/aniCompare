@@ -4,8 +4,6 @@
 .filter-pink{
     filter: brightness(0) saturate(100%) invert(67%) sepia(100%) saturate(2710%) hue-rotate(311deg) brightness(106%) contrast(87%);
 }
-.filter-white{
-}
 .filter-red{
     filter: brightness(0) saturate(100%) invert(41%) sepia(70%) saturate(761%) hue-rotate(313deg) brightness(110%) contrast(115%);
 }
@@ -18,11 +16,8 @@
 .filter-yellow{
     filter: brightness(0) saturate(100%) invert(81%) sepia(80%) saturate(1256%) hue-rotate(325deg) brightness(103%) contrast(102%);
 }
-.filter-tan{
-    filter: brightness(0) saturate(100%) invert(68%) sepia(37%) saturate(277%) hue-rotate(355deg) brightness(101%) contrast(91%);
-}
-.filter-gold{
-  filter: brightness(0) saturate(100%) invert(82%) sepia(34%) saturate(3129%) hue-rotate(1deg) brightness(105%) contrast(110%);
+.filter-lightyellow{
+    filter: brightness(0) saturate(100%) invert(96%) sepia(29%) saturate(1275%) hue-rotate(331deg) brightness(102%) contrast(114%);
 }
 .filter-lightgreen{
     filter: brightness(0) saturate(100%) invert(68%) sepia(61%) saturate(538%) hue-rotate(37deg) brightness(93%) contrast(92%);
@@ -32,9 +27,6 @@
 }
 .filter-blue{
     filter: brightness(0) saturate(100%) invert(38%) sepia(17%) saturate(5632%) hue-rotate(179deg) brightness(97%) contrast(81%);
-}
-.filter-lightblue{
-    filter: brightness(0) saturate(100%) invert(86%) sepia(52%) saturate(2318%) hue-rotate(110deg) brightness(107%) contrast(103%);
 }
 .filter-darkblue{
     filter: brightness(0) saturate(100%) invert(44%) sepia(7%) saturate(5536%) hue-rotate(182deg) brightness(82%) contrast(79%);
@@ -49,213 +41,85 @@
     filter: brightness(0) saturate(100%) invert(46%) sepia(23%) saturate(963%) hue-rotate(282deg) brightness(98%) contrast(83%);
 }
 
+.galleryImageHolder .tooltiptext {
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 0px;
+  padding: 0%;
+  position: absolute;
+  z-index: 10;
+  bottom: 0%;
+  left: 0%;
+  margin-left: 0px;
+  line-height:100%;
+  font-family:Arial;
+
+  /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.galleryImageHolder:hover .tooltiptext {
+  visibility: visible;
+  opacity: .8;
+}
+
 .searchbox {
   overflow: hidden;
-  background-color: rgb(21,31,46);
+  background-color: #e9e9e9;
   position:fixed;
-  color: rgb(139, 160, 178);
   width:100%;
   top: 0;
   z-index: 100;
 }
 
-::placeholder {
-    color: rgb(139, 160, 178);
-}
-
-.searchbox input[type=text], label, select {
+.searchbox input[type=text], label, select, p {
   float: left;
-  background-color: rgb(21,31,46);
-  color: rgb(139, 160, 178);
   padding: 6px;
-  border-color:rgb(139, 160, 178, 0.25);
-  border-style:solid;
-  box-shadow: none;
+  border: none;
   margin: 6px;
   font-size: 18px;
   font-family:Arial;
 }
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content/Box */
-.modal-content {
-  background-color: rgb(11, 22, 34);
-  font-family:"Roboto";
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid rgb(139, 160, 178, 0.25);
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-  color: rgb(21,31,46);
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 </style>
 
 <html>
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playwrite+US+Trad:wght@100..400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-</head>
-<body style="background-color:rgb(11, 22, 34);margin:45px 0px 0px 0px" class="">
+<body style="background-color:white;margin:45px 0px 0px 0px">
 
   <div class="searchbox" id="searchdiv">
-    <input type="text" id="searchtext" placeholder="Anilist username">
-    <input id="searchbutton" type="button" value="Search" onclick="searchUser();" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px;" />
-
-    <button id="legendBtn" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px;float: right; margin-right:1%;">Legend</button>
-    <div style="display:inline-block;font-family:'Roboto'; float:right; margin-right:1%;">
-      <div id="compareText" style="display:inline-block">
-        <pre style="font-family:'Roboto';color:rgb(139, 160, 178);text-align: center;"><i>Compare your Anilist with <a style="color:rgb(129, 160, 198);text-decoration:none" href="https://anilist.co/user/clapyourhands/">clapyourhands</a></i></pre>
-      </div>
-      <div id="stickerText" style="display:none">
-        <pre style="font-family:'Roboto';color:rgb(139, 160, 178);text-align: center;"><i>View your gallery of icons                           </i></pre>
-      </div>
-    </div>
-    <button id="switchBtn" style="background-color: rgb(139, 160, 178, 0.1); border: 0; box-shadow: none; border-radius: 0px; color:rgb(139, 160, 178);transform: translateY(50%);font-size:20px;float: right; margin-right:1%;">Switch</button>
+    <input type="text" id="searchtext" placeholder="Search...">
+    <p> Score between </p>
+    <input type="text" id="scoremin" style="width:20px; text-align:center" placeholder="1" value="1">
+    <p> and </p>
+    <input type="text" id ="scoremax" style="width:20px; text-align:center" placeholder="10" value="10">
+    <label for="genre-select">Genre:</label>
+    <select name="listOfGenres" id="genre-select">
+      <option value="-1">All</option>
+      <option value="1">Action</option>
+      <option value="3">Adventure</option>
+      <option value="4">Comedy</option>
+      <option value="10">Drama</option>
+      <option value="0">Romance</option>
+      <option value="6">Slice of Life</option>
+      <option value="9">Fantasy</option>
+      <option value="11">Mystery</option>
+      <option value="2">Thriller</option>
+      <option value="5">Sports</option>
+      <option value="8">Sci-Fi</option>
+      <option value="7">Music</option>
+    </select>
   </div>
-
-
-  <div id="legendModal" class="modal">
-    <div class="modal-content">
-    <span id="legendModalClose" class="close">&times;</span>
-    <p style="color:gold">We both share a hot take and think this anime is better than most people think.</p>
-    <p style="color:cyan">We both share a hot take and think this anime is worse than most people think.</p>
-    <p style="color:pink">We both have a hot take on this anime, but in opposite ways.</p>
-    <p style="color:green">You have a hot take regarding this anime and think it's better than most people think.</p>
-    <p style="color:red">You have a hot take regarding this anime and think it's worse than most people think.</p>
-    <p style="color:purple">I have a hot take regarding this anime.</p>
-    <p style="color:white">We both agree with the majority regarding this anime.</p>
-    <p style="color:tan">We slightly disagree regarding this anime.</p>
-    <p style="color:orange">We somewhat disagree regarding this anime.</p>
-  </div>
-</div>
-
-  <div id="stickerLegendModal" class="modal">
-    <div class="modal-content">
-      <span id="legendModalClose" class="close">&times;</span>
-      <p style="color:darkred">0-5</p>
-      <p style="color:pink">5.5</p>
-      <p style="color:white">6-7</p>
-      <p style="color:dodgerblue">7.5</p>
-      <p style="color:blue">8</p>
-      <p style="color:yellowgreen">8.5</p>
-      <p style="color:seagreen">9</p>
-      <p style="color:tan">9.5</p>
-      <p style="color:yellow">10</p>
-    </div>
-  </div>
-
-<div id="noAccountFoundError" class="modal">
-  <div class="modal-content">
-  <span id="accountErrorClose" class="close">&times;</span>
-  <p style="color:rgb(139, 160, 178)">No AniList account found</p>
-</div>
-</div>
-
-<div id="noListFoundError" class="modal">
-  <div class="modal-content">
-  <span id="listErrorClose" class="close">&times;</span>
-  <p style="color:rgb(139, 160, 178)">No non-custom lists found; the AniList account needs its default lists to be visible in order to be read.</p>
-</div>
-</div>
-
   <div id='gallery' class='imageGallery' style='line-height: 0px; padding: 0; margin: 0;'>
     <div style='display:flex; flex-flow:row wrap; margin-left:0%; margin-right:0%;' id='entryHolder'></div>
   </div>
 
+<!--<img src = "/Users/aaron/Documents/MagicalGirlOreSquare.svg" class="filter-green"/>-->
 <script>
-
-var switchOption = "compare";
-
-var modal = document.getElementById("legendModal");
-var stickerModal = document.getElementById("stickerLegendModal");
-var accountErrorModal = document.getElementById("noAccountFoundError");
-var listErrorModal = document.getElementById("noListFoundError");
-
-// Get the button that opens the modal
-var btn = document.getElementById("legendBtn");
-var switchBtn = document.getElementById("switchBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var span1 = document.getElementsByClassName("close")[1];
-var span2 = document.getElementsByClassName("close")[2];
-var span3 = document.getElementsByClassName("close")[3];
-
-var sticker = false;
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  if (!sticker) {
-    modal.style.display = "block";
-  }
-  else {
-    stickerModal.style.display = "block";
-  }
-}
-switchBtn.onclick = function() {
-  if (switchOption == "compare") {
-    switchOption ="sticker";
-    document.getElementById("compareText").style.display="none";
-    document.getElementById("stickerText").style.display="inline-block";
-    sticker = true;
-  }
-  else {
-    switchOption ="compare";
-    document.getElementById("stickerText").style.display="none";
-    document.getElementById("compareText").style.display="inline-block";
-    sticker = false;
-  }
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-span1.onclick = function() {
-  stickerLegendModal.style.display = "none";
-}
-span2.onclick = function() {
-  accountErrorModal.style.display = "none";
-}
-span3.onclick = function() {
-  listErrorModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal || event.target == accountErrorModal || event.target == listErrorModal || event.target == stickerLegendModal) {
-    modal.style.display = "none";
-    accountErrorModal.style.display = "none";
-    listErrorModal.style.display = "none";
-    stickerLegendModal.style.display = "none";
-  }
-}
 
 animeDict = {
     "Pokemon": { ALID: 527, Name: "Pokémon", Score: 7.5, Genre: "Adventure", Related: [527,1564,528,1117,1118,1119,1120,4874,10916,10917,20159,97635,98298,112152,106287,1709,1525,138699,110639,1565,1121,1122,1526,1527,2201,5844,5845,20956,4910,2363,2842,6877,11009,11019,5526,4792,6385,4793,4794,4795,9107,19291,2847,4026,6178,6555,7550,7695,8709,11069,5256,6275,8438,10302,5529,14093,9917,10740,11853,14123,20644,20683,21266,21356,105616,21304,20948,20570,17115,12671,126294,14935,21271,21270,21651,97634,106499,17873,13799,112153,100744,16680,19099,113932,119964,142794,155767,145813,158870,114564,158869,169404,16678,125308,158871,169824,162147,163619,167418,168092,170535,171346], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/b527-cFxpkJI4026c.png" },
@@ -730,7 +594,7 @@ animeDict = {
     "Hanasaku": { ALID: 9289, Name: "Hanasaku Iroha ~Blossoms for Tomorrow~", Score: 8, Genre: "Slice of Life", Related: [9289, 14175], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/nx9289-2Y14iZ2pMqeX.jpg" },
     "Ranma": { ALID: 210, Name: "Ranma ½", Score: 7, Genre: "Comedy", Related: [210, 149939, 1007, 418, 792, 10825, 6713, 10824, 1008, 1010, 1011, 5493], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx210-qgahLDYT0t9b.png" },
     "TariTari": { ALID: 13333, Name: "Tari Tari", Score: 9.5, Genre: "Music", Related: [13333, 20847], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/nx13333-yDRfFOMbrbf0.png" },
-    "UmaMusume": { ALID: 98514, Name: "Umamusume: Pretty Derby", Score: 5.5, Genre: "Sports", Related: [98514, 103237, 108941, 124223, 172420, 154386, 148401, 148370, 145608, 156632], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx98514-l4F8uqPzI7Mk.jpg" },
+    "UmaMusume": { ALID: 98514, Name: "Umamusume: Pretty Derby", Score: 5.5, Genre: "Sports", Related: [98514, 103237, 108941, 124223, 172420, 154386, 148401, 148370, 145608, 156632, 180516], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx98514-l4F8uqPzI7Mk.jpg" },
     "MaisonIkkoku": { ALID: 1453, Name: "Maison Ikkoku", Score: 7, Genre: "Romance", Related: [1453, 3484, 2460, 2459], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/nx1453-mghhMKzxEVcQ.jpg" },
     "Horutabi": { ALID: 10408, Name: "Into the Forest of Fireflies’ Light", Score: 7, Genre: "Fantasy", Related: [10408], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx10408-PlKJ6DAyvMk2.png" },
     "Kaiji": { ALID: 3002, Name: "Kaiji - Ultimate Survivor", Score: 7, Genre: "Thriller", Related: [3002, 10271, 101161], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx3002-E3qrgu12RCP2.jpg" },
@@ -1172,18 +1036,25 @@ animeDict = {
     "Akikan": { ALID: 5112, Name: "Akikan!", Score: 3, Genre: "Comedy", Related: [5112,6287], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/5112.jpg" },
     "GirlfriendGal": { ALID: 97863, Name: "My First Girlfriend is a Gal", Score: 4.5, Genre: "Romance", Related: [97863,98878], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97863-79AXrUZ7VQa5.jpg" },
     "SuicideSquad": { ALID: 166710, Name: "Suicide Squad ISEKAI", Score: 6, Genre: "Action", Related: [166710], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx166710-3G2croXhaCOm.jpg" },
+    "ZombieKa": { ALID: 8841, Name: "Is this a Zombie?", Score: 5.5, Genre: "Comedy", Related: [8841,10209,10790,15437], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx8841-pitrO5QSdfmA.png" },
+    "DetroitMetal": { ALID: 3702, Name: "Detroit Metal City", Score: 6, Genre: "Comedy", Related: [3702,5065], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx3702-TCo0UYxWQzYj.jpg" },
+    "Bokuben": { ALID: 103900, Name: "We Never Learn: BOKUBEN", Score: 6, Genre: "Romance", Related: [103900,110229,109492], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103900-GEphwuLf3gKT.jpg" },
+    "TestamentSister": { ALID: 20678, Name: "The Testament of Sister New Devil", Score: 5, Genre: "Romance", Related: [20678,21247,21209,21110,21489,100451,108944,102508], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20678-58D9Yhi4GcH2.png" },
+    "Granbelm": { ALID: 108147, Name: "GRANBELM", Score: 7, Genre: "Fantasy", Related: [108147], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b108147-pymvfgDxie1b.jpg" },
+    "Oresuki": { ALID: 104464, Name: "ORESUKI: Are you the only one who loves me?", Score: 6, Genre: "Romance", Related: [104464,114195], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104464-VOIqGSQs1aiR.png" },
+    "FinestAssassin": { ALID: 129898, Name: "The World’s Finest Assassin Gets Reincarnated in Another World as an Aristocrat", Score: 6, Genre: "Fantasy", Related: [129898,169579], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx129898-FRUzDtPhRigt.jpg" },
+    "MyriadColors": { ALID: 21306, Name: "Myriad Colors Phantom World", Score: 5.5, Genre: "Action", Related: [21306,21777,97951], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21306-nXw2pY43S2ox.png" },
 
-    "DetroitMetal": { ALID: 3702, Name: "Detroit Metal City", Score: 0, Genre: "Comedy", Related: [3702,5065], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx3702-TCo0UYxWQzYj.jpg" },
+    "WanderingWitch": { ALID: 112609, Name: "Wandering Witch: The Journey of Elaina", Score: 0, Genre: "Adventure", Related: [112609], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112609-dbpOh4fdXAlC.jpg" },
+    "ExecutionersWay": { ALID: 129193, Name: "The Executioner and Her Way of Life", Score: 0, Genre: "Fantasy", Related: [129193], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx129193-pT3W5PpiMAUB.png" },
+    "Kannagi": { ALID: 3958, Name: "Kannagi: Crazy Shrine Maidens", Score: 0, Genre: "Fantasy", Related: [3958,5978], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx3958-SztG03yWCG5G.jpg" },
 
-    "Bokuben": { ALID: 103900, Name: "We Never Learn: BOKUBEN", Score: 0, Genre: "Romance", Related: [103900,110229,109492], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103900-GEphwuLf3gKT.jpg" },
-    "ZombieKa": { ALID: 8841, Name: "Is this a Zombie?", Score: 0, Genre: "Comedy", Related: [8841,10209,10790,15437], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx8841-pitrO5QSdfmA.png" },
-    "Oresuki": { ALID: 104464, Name: "ORESUKI: Are you the only one who loves me?", Score: 0, Genre: "Romance", Related: [104464,114195], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104464-VOIqGSQs1aiR.png" },
 
-    "Granbelm": { ALID: 108147, Name: "GRANBELM", Score: 0, Genre: "Fantasy", Related: [108147], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b108147-pymvfgDxie1b.jpg" },
     "BiscuitHammer": { ALID: 144323, Name: "Lucifer and the Biscuit Hammer", Score: 0, Genre: "Action", Related: [144323], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx144323-BU9YN8Yphagr.jpg" },
     "Layton": { ALID: 100785, Name: "Layton Mystery Tanteisha", Score: 0, Genre: "Mystery", Related: [100785,6172], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100785-3S9mEPpA7IhK.jpg" },
 
     "Yatagarasu": { ALID: 170503, Name: "YATAGARASU: The Raven Does Not Choose Its Master", Score: 0, Genre: "Fantasy", Related: [170503], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170503-PCr24JL8F8f9.jpg" },
+    "DimensionalSeduction": { ALID: 158559, Name: "2.5 Dimensional Seduction", Score: 0, Genre: "Romance", Related: [158559], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx158559-eVc9cNSmcUix.jpg" },
     "MayonakaPunch": { ALID: 174044, Name: "MAYONAKA PUNCH", Score: 0, Genre: "Comedy", Related: [174044], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx174044-HBvsyKjDVPyO.jpg" },
     "Delico": { ALID: 167991, Name: "Delico’s Nursery", Score: 0, Genre: "Mystery", Related: [167991], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx167991-uOu8ggPXzVUQ.jpg" },
     "YozakuraFamily": { ALID: 158898, Name: "Mission: Yozakura Family", Score: 0, Genre: "Action", Related: [158898, 13331], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx158898-O3egiBNkxLQO.png" },
@@ -1208,424 +1079,360 @@ animeDict = {
     "NoLongerAllowed": { ALID: 152137, Name: "No Longer Allowed in Another World", Score: 0, Genre: "Fantasy", Related: [152137], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx152137-DOCIkAiaWALu.jpg" },
     "AlyaRussian": { ALID: 162804, Name: "Alya Sometimes Hides Her Feelings in Russian", Score: 0, Genre: "Romance", Related: [162804], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx162804-TBeptcAfvqTd.jpg" },
     "EvilLieutenant": { ALID: 170938, Name: "The Magical Girl and the Evil Lieutenant Used to Be Archenemies", Score: 0, Genre: "Romance", Related: [170938], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx170938-kkeDCKGSUNaV.jpg" },
+    "RickMorty": { ALID: 150103, Name: "Rick and Morty: The Anime", Score: 0, Genre: "Sci-Fi", Related: [150103,122536,143287], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx150103-6rlFCeObUPlI.jpg" },
     "Tasuketsu": { ALID: 174070, Name: "Tasuketsu -Fate of the Majority-", Score: 0, Genre: "Romance", Related: [174070,134222], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx174070-mrec0spMuATz.jpg" },
     "Nokotan": { ALID: 175977, Name: "My Deer Friend Nokotan", Score: 0, Genre: "Comedy", Related: [175977], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx175977-miHFASI6TXHH.jpg" },
     "Atri": { ALID: 154963, Name: "ATRI -My Dear Moments-", Score: 0, Genre: "Drama", Related: [154963,120757], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154963-Ju6Ey3P5YHs2.jpg" },
     "ParryEverything": { ALID: 170695, Name: "I Parry Everything", Score: 0, Genre: "Fantasy", Related: [170695], Img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx170695-Nb1DIg7gIHCF.jpg" }
     };
-    
-  hexColors = ["#EF8184","#FF595E","#C31D2E","#FF924C","#FFCA3A","#8AC926","#52A675","#1982C4","#4267AC","#A993C8","#6A4C93","#B86589"]
-  classList = ["filter-pink","filter-red","filter-darkred","filter-orange","filter-yellow","filter-lightgreen","filter-green","filter-blue","filter-darkblue","filter-lightpurple","filter-purple","filter-magenta"]
-  genreList = ["Romance","Action","Thriller","Adventure","Comedy","Sports","Slice of Life","Music","Sci-Fi","Fantasy","Drama","Mystery"]
 
-  colorList = []
-  rawList=[];
+hexColors = ["#EF8184","#FF595E","#C31D2E","#FF924C","#FFCA3A","#8AC926","#52A675","#1982C4","#4267AC","#A993C8","#6A4C93","#B86589"]
+classList = ["filter-pink","filter-red","filter-darkred","filter-orange","filter-yellow","filter-lightgreen","filter-green","filter-blue","filter-darkblue","filter-lightpurple","filter-purple","filter-magenta"]
+genreList = ["Romance","Action","Thriller","Adventure","Comedy","Sports","Slice of Life","Music","Sci-Fi","Fantasy","Drama","Mystery"]
 
-  franchiseList = [Object.keys(animeDict)];
-  var subentryDict ={};
-  var userScoreDict={};
-  var diffScoreDict={};
-  var avgScoreDict={};
-  for (f = 0; f < franchiseList[0].length; f++) {
-    relatedAnime = animeDict[franchiseList[0][f]].Related;
-    for (r = 0; r < relatedAnime.length; r++) {
-      subentryDict[relatedAnime[r]] = animeDict[franchiseList[0][f]].ALID;
+colorList = []
+
+//iconList=["Aharen","Akiba","Akudama","Amagi","Anthem","Azumanga","Bakemono","Bisque","Blockade","Bloom","BlueLock","BlueSpring","BNA","Bokurano","Bookworm","Buddy","BurnTheWitch","Chainsaw","CoolDoji","Crooks","Cyberpunk","Danmachi","Date","Dfrag","DIY","Domination","Edens","Eromanga","Fudanshi","Hamatora","Hanako","Highway","Higurashi","Himouto","Hinamatsuri","Hyouka","Hortensia","Idolmaster","Id","Index","Inu","Irregular","Jellyfish","Kageki","Kantai","KemonoFriends","Kemono","Kongming","Leapt","LittleMonster","LoveAll","LoveLive","Lovely","LuckyStar","LoveLive","Masamune","MiraiFuture","Misfit","Mummy","Nagatoro","Nisekoi","Number24","Orange","Order","Ore","Panic","Paradise","Paranoia","Prison","PTE","Redline","Rendering","Romantic","Ryman","Saekano","Sailor","Sakurasou","Sarazanmai","SchoolDays","Science","Shenmue","Shinsekai","Snafu","Talentless","TalesOf","Terror","Tiger","Tomozaki","Tour","Trigger","Urusei","Whale","YuriYuri","Zetsubo","Zombieland","MagicalGirlOre","Belle","SingYesterday","Gosick","SpiderRiders"];
+
+iconList = [];
+idList = [];
+imageLoaded = [];
+	for (i = 0; i < Object.keys(animeDict).length/*100*/; i++) {
+    iconList.push(Object.keys(animeDict)[i]);
+    idList.push(animeDict[Object.keys(animeDict)[i]].ALID);
+  }
+
+  //shuffleArray(iconList);
+
+	var entryImages = "";
+	var entryImageLink = "";
+	for (i = 0; i < iconList.length; i++) {
+    animeKey = iconList[i];
+		entryImageLink = /*"/Volumes/NO NAME/SVGVectors/"*/"https://clapyourhands.github.io/aniCompare/icons/".concat(animeKey,"Square.svg");
+    iconColor = getRandomColor(i,10);
+    iconColor = hexColors[genreList.indexOf(animeDict[animeKey].Genre)];
+    //iconColor = "black";
+
+    classOption = "";
+    //color icon by score
+    /*
+    if (animeDict[animeKey].Score <= 5) {
+      classOption = "filter-darkred";
+    }
+    else if (animeDict[animeKey].Score == 5.5) {
+      classOption = "filter-pink";
+    }
+    else if (animeDict[animeKey].Score == 7.5) {
+      classOption = "filter-blue";
+    }
+    else if (animeDict[animeKey].Score == 8) {
+      classOption = "filter-darkblue";
+    }
+    else if (animeDict[animeKey].Score == 8.5) {
+      classOption = "filter-lightgreen";
+    }
+    else if (animeDict[animeKey].Score == 9) {
+      classOption = "filter-green";
+    }
+    else if (animeDict[animeKey].Score == 9.5) {
+      classOption = "filter-lightyellow";
+    }
+    else if (animeDict[animeKey].Score == 10) {
+      classOption = "filter-yellow";
+    }
+    */
+
+    //color icon by genre
+    //classOption = classList[genreList.indexOf(animeDict[animeKey].Genre)];
+		entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:10%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + iconColor + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;' onmouseover='loadImg(" + i + ")''>"
+		entryImageTmp = entryImageContainer + "<span class='tooltiptext'>" + animeDict[animeKey].Name + "<br>(" + animeDict[animeKey].Score + ")" + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>";
+		entryImages = entryImages + entryImageTmp;
+	}
+
+	document.getElementById("entryHolder").innerHTML = entryImages;
+
+function getRandom(arr, n) {
+    var result = new Array(n),
+        len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        n = arr.length;
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+}
+
+function getRandomColor(n,rowlength) {
+    randomColor = getRandom(hexColors,1)[0];
+    while ( (n > 0 && randomColor == colorList[n-1]) || (n >= rowlength && randomColor ==colorList[n-rowlength])) {
+    	randomColor = getRandom(hexColors,1)[0];
+    }
+    colorList.push(randomColor);
+    return randomColor;
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+function loadImg(objectID) {
+  aniID = animeDict[Object.keys(animeDict)[objectID]].ALID;
+  imgID = animeDict[Object.keys(animeDict)[objectID]].Img;
+    document.getElementById("cover" + aniID).innerHTML = "<a href=" + "https://www.anilist.com/anime/" + aniID + "><img src='" + imgID + "' width=50% height=50%>"
+}
+
+function filterDB() {
+  returnList = [];
+
+  searchString = document.getElementById("searchtext").value;
+  scoreString = document.getElementById("scoremin").value + "," + document.getElementById("scoremax").value;
+  scoreLimits = scoreString.split(',');
+  genreVal = genreList[document.getElementById("genre-select").value];
+  if (document.getElementById("genre-select").value == -1) {
+    genreVal = "All"
+  }
+
+  for (f = 0; f <Object.keys(animeDict).length; f++) {
+    if (animeDict[Object.keys(animeDict)[f]].Genre == genreVal || genreVal ==  "All") {
+      if (animeDict[Object.keys(animeDict)[f]].Score >= scoreLimits[0] && animeDict[Object.keys(animeDict)[f]].Score <= scoreLimits[1]) {
+        if (animeDict[Object.keys(animeDict)[f]].Name.toLowerCase().indexOf( searchString.toLowerCase() ) > -1) {
+          returnList.push(idList[f]);
+        }
+      }
     }
   }
 
-  personalScoreDict={};
-  for (p=0; p<Object.keys(animeDict).length; p++) {
-    personalScoreDict[animeDict[Object.keys(animeDict)[p]].ALID] = animeDict[Object.keys(animeDict)[p]].Score;
-  };
+  for (f = 0; f < Object.keys(animeDict).length; f++) {
+    ad = animeDict[Object.keys(animeDict)[f]].ALID;
+    if (returnList.includes(ad)) {
+      document.getElementById("img" + ad).style.display = "block";
+    }
+    else {
+      document.getElementById("img" + ad).style.display = "none";
+    }
+  }
+  return returnList;
+}
 
-  async function getShared(aniName) {
+document.getElementById("searchtext").onkeyup = function(){
+  filterDB()
+};
 
-      rawList = []
+document.getElementById("scoremin").onkeyup = function(){
+  filterDB()
+};
 
-        /*var query = `
-        query($username: String, $p: Int) {
-          Page(page:$p, perPage:50) {
-            mediaList(compareWithAuthList:true userName:$username, type:ANIME) {
-              media {
-                id
-              }
-              score
-              status
-            }
-            pageInfo {
-              hasNextPage
-            }
-          }
+document.getElementById("scoremax").onkeyup = function(){
+  filterDB()
+};
+
+document.getElementById("genre-select").onchange = function(){
+  filterDB();
+};
+
+
+function getAPI_imageWrap(aniID) {
+  var area=this;
+  var delay=setTimeout(function(){getAPI_image(aniID);},800);
+  area.onmouseout=function(){clearTimeout(delay);};
+}
+
+async function getAPI_image(aniID) {
+
+  if (!imageLoaded.includes(aniID)) {
+
+    var query = `
+    query ($id: Int) { # Define which variables will be used in the query (id)
+      Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+        coverImage {
+          medium
         }
-        `;*/
+      }
+    }
+    `;
 
-        var query = `
-        query($username: String) {
-          MediaListCollection(userName:$username, type:ANIME) {
-            lists {
-              name
-              entries {
-                mediaId
-                score(format: POINT_10_DECIMAL)
-                media {
-                  averageScore
-                }
-              }
-              isCustomList
-            }
-          }
-        }
-        `;
+    // Define our query variables and values that will be used in the query request
+    var variables = {
+        id: aniID
+    };
 
-        // Define our query variables and values that will be used in the query request
-        var variables = {
-            username: aniName,
+    // Define the config we'll need for our Api request
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
         };
 
-        // Define the config we'll need for our Api request
-        var url = 'https://graphql.anilist.co',
-            options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    query: query,
-                    variables: variables
-                })
-            };
+    // Make the HTTP Api request
+   let imgURLRaw = await fetch(url, options);
+   let response = await imgURLRaw.json();
 
-        // Make the HTTP Api request
-       let fetchraw = await fetch(url, options);
-       let response = await fetchraw.json();
+    responseJSON = response.data.Media.coverImage.medium;
+    document.getElementById("cover" + aniID).innerHTML = "<a href=" + "https://www.anilist.com/anime/" + aniID + "><img src='" + responseJSON + "' width=30% height=30%>"
+    return responseJSON;
+ }
 
-       responseEdges = response.data;
 
-       if (responseEdges.MediaListCollection == null) {
-         accountErrorModal.style.display="block";
-       }
 
-       for (f=0; f<responseEdges.MediaListCollection.lists.length; f++) {
-         if (!responseEdges.MediaListCollection.lists[f].isCustomList && responseEdges.MediaListCollection.lists[f].name != "Planning") {
-           for (g=0; g<responseEdges.MediaListCollection.lists[f].entries.length; g++) {
-             tmpScore = responseEdges.MediaListCollection.lists[f].entries[g].score;
-             tmpAvg = responseEdges.MediaListCollection.lists[f].entries[g].media.averageScore / 10;
-             tmpEntry = responseEdges.MediaListCollection.lists[f].entries[g].mediaId;
-             if (subentryDict[tmpEntry] != undefined) {
-               franchiseName = subentryDict[tmpEntry];
-               if (userScoreDict[franchiseName] == undefined || userScoreDict[franchiseName] < tmpScore) {
-                 userScoreDict[franchiseName] = tmpScore;
-               }
-               if (avgScoreDict[franchiseName] == undefined || avgScoreDict[franchiseName] < tmpAvg) {
-                 avgScoreDict[franchiseName] = tmpAvg;
-               }
-             }
-           }
-         }
-       }
 
-       for (d=0; d<Object.keys(userScoreDict).length; d++ ) {
-         diffScoreDict[Object.keys(userScoreDict)[d]] =  (userScoreDict[Object.keys(userScoreDict)[d]] - personalScoreDict[Object.keys(userScoreDict)[d]]).toFixed(2);
-         if (userScoreDict[Object.keys(userScoreDict)[d]] == 0 || personalScoreDict[Object.keys(userScoreDict)[d]] == 0) {
-           diffScoreDict[Object.keys(userScoreDict)[d]] = null;
-         }
-       }
+ imageLoaded.push(aniID)
+}
+
+async function getAllIDs() {
+    mapArray = [];
+    for (g = 0; g < idList.length; g++) {
+      mapArray.push([idList[g],""]);
     }
+    idMap = new Map(mapArray);
+    test = idList.slice(0,5)
 
+    const timer = ms => new Promise(res => setTimeout(res, ms))
 
+    for (h = 0; h < idList.length; h++) {
+      let iurl = await getAPI_image(idList[h]);
+      idMap.set(idList[h], iurl);
+      console.log(h)
+      await timer(2001);
+    }
+}
 
-      /*for (s = 0; s < rawList.length; s++) {
-        tmpScore = rawList[s][1];
-        if (userScoreDict[rawList[s][0]] == undefined) {
-          userScoreDict[rawList[s][0]] = tmpScore;
+/*
+query {
+  Media(id: 10087, type: ANIME) {
+    id
+    relations {
+      edges {
+        relationType
+        node {
+          id
+          title {
+            original
+          }
+          type
         }
-        else {
-          if (userScoreDict[rawList[s][0]] < tmpScore) {
-            userScoreDict[rawList[s][0]] = tmpScore;
+      }
+    }
+  }
+}
+
+*/
+
+var allRelated = [];
+var finalRelated = [];
+
+async function getRelatedMedia(aniID) {
+
+  if (!imageLoaded.includes(aniID)) {
+
+    var query = `
+    query ($id: Int) { # Define which variables will be used in the query (id)
+      Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+        id
+        relations {
+          edges {
+            relationType
+            node {
+              id
+              format
+              title {
+                native
+              }
+              type
+            }
           }
         }
       }
-  }*/
+    }
+    `;
 
-      //iconColor = "black";
+    // Define our query variables and values that will be used in the query request
+    var variables = {
+        id: aniID
+    };
 
-      //color icon by score
-      /*
-      if (animeDict[animeKey].Score <= 5) {
-        classOption = "filter-darkred";
-      }
-      else if (animeDict[animeKey].Score == 5.5) {
-        classOption = "filter-pink";
-      }
-      else if (animeDict[animeKey].Score == 7.5) {
-        classOption = "filter-blue";
-      }
-      else if (animeDict[animeKey].Score == 8) {
-        classOption = "filter-darkblue";
-      }
-      else if (animeDict[animeKey].Score == 8.5) {
-        classOption = "filter-lightgreen";
-      }
-      else if (animeDict[animeKey].Score == 9) {
-        classOption = "filter-green";
-      }
-      else if (animeDict[animeKey].Score == 9.5) {
-        classOption = "filter-lightyellow";
-      }
-      else if (animeDict[animeKey].Score == 10) {
-        classOption = "filter-yellow";
-      }
-      */
+    // Define the config we'll need for our Api request
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
+        };
 
-      //color icon by genre
-      //classOption = classList[genreList.indexOf(animeDict[animeKey].Genre)];
+    // Make the HTTP Api request
+   let fetchraw = await fetch(url, options);
+   let response = await fetchraw.json();
 
+    responseEdges = response.data.Media.relations.edges;
+    return responseEdges;
+ }
+}
 
-    async function searchUser() {
+var test;
+excludeList = [20947,145850,116195,6115,18429,154924,125514,3898,21231,168973,15785,149099]
 
-      searchString = document.getElementById("searchtext").value;
-      diffScoreDict={};
-      avgScoreDict={};
-      userScoreDict={};
-      if (searchString != "clapyourhands") {
-        await getShared(searchString);
+async function getAllRelations() {
 
-        iconList = [];
-        idList = [];
-        imageLoaded = [];
-        diffScoreArray = Object.entries(diffScoreDict).sort(function(a, b) {
-            if (a[1] === null) {
-                return 1;
-            }
-            if (b[1] === null) {
-                return -1;
-            }
-            else {
-              return (Math.abs(b[1]) - Math.abs(a[1]));
-            }
-        });
+    const timer = ms => new Promise(res => setTimeout(res, ms))
 
-          yourHotTakes = [];
-          myHotTakes = [];
-          ourHotTakesGood = [];
-          ourHotTakesBad = [];
-          otherTakes = [];
-
-          for (i = 0; i < diffScoreArray.length; i++) {
-            yourScore = userScoreDict[diffScoreArray[i][0]];
-            clapScore = personalScoreDict[diffScoreArray[i][0]];
-            avgScore = avgScoreDict[diffScoreArray[i][0]];
-            if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore) < 2 && (yourScore != 0 && clapScore != 0)) {
-              yourHotTakes.push(diffScoreArray[i][0])
-            }
-            else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2 && (yourScore != 0 && clapScore != 0)) {
-              myHotTakes.push(diffScoreArray[i][0])
-            }
-            else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 && (yourScore != 0 && clapScore != 0)) {
-              ourHotTakesGood.push(diffScoreArray[i][0])
-            }
-            else if (avgScore - yourScore >= 2 && avgScore - clapScore  >= 2 && (yourScore != 0 && clapScore != 0)) {
-              ourHotTakesBad.push(diffScoreArray[i][0])
-            }
-            else {
-              otherTakes.push(diffScoreArray[i][0])
-            }
-          }
-
-          console.log(diffScoreArray.length)
-          if (diffScoreArray.length == 0) {
-            listErrorModal.style.display="block";
-          }
-          allTakes = [ourHotTakesGood, ourHotTakesBad, yourHotTakes, myHotTakes, otherTakes]
-          if (!sticker) {
-            for (h = 0; h < allTakes.length; h++) {
-              for (i = 0; i < allTakes[h].length/*100*/; i++) {
-                iconName = Object.keys(animeDict).find(key =>
-                    animeDict[key].ALID == allTakes[h][i]);
-                iconList.push(iconName);
-                idList.push(allTakes[h][i]);
-              }
-            }
-
-            var entryImages = "";
-            var entryImageLink = "";
-            var classOption = "";
-              for (i = 0; i < iconList.length; i++) {
-                animeKey = iconList[i];
-                entryImageLink = "icons/".concat(animeKey,"Square.svg");
-                iconColor = "transparent"//hexColors[genreList.indexOf(diffScoreDict[animeKey].Genre)];
-
-                yourScore = userScoreDict[animeDict[animeKey].ALID];
-                clapScore = personalScoreDict[animeDict[animeKey].ALID];
-                avgScore = avgScoreDict[animeDict[animeKey].ALID];
-                plusMinus = "+";
-                diffScore = diffScoreDict[animeDict[animeKey].ALID];
-                if (diffScore < 0) {
-                  plusMinus = "-";
-                }
-                diffScore = Math.abs(diffScore)
-                if (yourScore == 0 || clapScore == 0) {
-                  plusMinus = "";
-                  diffScore = null;
-                }
-                colorCode = "gray";
-
-                if (yourScore == 0 || clapScore == 0) {
-                  colorCode="gray";
-                  classOption = "filter-white";
-                }
-                else if (avgScore - yourScore < -2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take (bad)
-                  colorCode = "green";
-                  classOption = "filter-green";
-                }
-                else if (avgScore - yourScore > 2 && Math.abs(avgScore - clapScore) < 2) { //clap agrees with the majority, your hot take (bad)
-                  colorCode = "red";
-                  classOption = "filter-red";
-                }
-                else if (Math.abs(avgScore - yourScore) < 2 && Math.abs(avgScore - clapScore) > 2) { //you agree with the majority, clap's hot take
-                  colorCode = "purple"
-                  classOption = "filter-purple";
-                }
-                else if (avgScore - yourScore <= -2 && avgScore - clapScore <= -2 ) { //hot take, you both agree it's good
-                  colorCode = "gold"
-                  classOption = "filter-gold";
-                }
-                else if (avgScore - yourScore >= 2 && avgScore - clapScore  >= 2 ) { //hot take, you both agree it's bad
-                  colorCode = "cyan"
-                  classOption = "filter-lightblue";
-                }
-                else if (Math.abs(avgScore - yourScore) > 2 && Math.abs(avgScore - clapScore)  > 2 &&  Math.abs(clapScore - yourScore) > 4) { //hot take, and you disagree
-                  colorCode = "pink"
-                  classOption = "filter-pink";
-                }
-                else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) <= 2.5) { //standard take
-                  colorCode = "white"
-                  classOption = "filter-white";
-                }
-                else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) < 3.5) { //somewhat disagree
-                  colorCode = "tan"
-                  classOption = "filter-tan";
-                }
-                else if (Math.abs(avgScore - yourScore) <= 2 && Math.abs(avgScore - clapScore) <= 2 && Math.abs(clapScore - yourScore) > 3.5) { //disagree with each other
-                  colorCode = "orange"
-                  classOption = "filter-orange";
-                }
-
-                diffBox = "<div style='color:white;display:block;width:60%;font-family:Roboto'><h2>" + animeDict[animeKey].Name + "</h2><br><p style='color:" + colorCode + "'>" + plusMinus + diffScore + "</p><br><p>Your score: " + yourScore + "</p><br><p>clap's score: " + clapScore + "</p><br><p>Average: " + avgScore + "</p></div>"
-
-              entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:20%;height: 0;padding-bottom: 20%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + iconColor + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;'>"
-              entryImageTmp = entryImageContainer + /*"<span class='tooltiptext'>" + animeDict[animeKey].Name + "<br>(" + animeDict[animeKey].Score + ")" + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + */ "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>" + diffBox + "<div><img style='position:relative;top: 50%;transform: translateY(-50%);' src='" + animeDict[animeKey].Img + "'width=100px></div>";
-              entryImages = entryImages + entryImageTmp;
-            }
-          }
-          else {
-            entryImages = [];
-            iconList = [];
-            iconScoreList = [];
-            for (i = 0; i < Object.keys(userScoreDict).length; i++) {
-              iconName = Object.keys(animeDict).find(key =>
-                                animeDict[key].ALID == Object.keys(userScoreDict)[i]);
-              iconList.push(iconName);
-              iconScoreList.push(userScoreDict[Object.keys(userScoreDict)[i]]);
-            }
-            for (i = 0; i < iconList.length; i++) {
-              animeKey = iconList[i];
-              entryImageLink = "icons/".concat(animeKey,"Square.svg");
-              //iconColor = "black";
-              classOption = "";
-              //color icon by score
-
-              if (iconScoreList[i] <= 5 && iconScoreList[i] != 0) {
-                classOption = "filter-darkred";
-              }
-              else if (iconScoreList[i] == 5.5) {
-                classOption = "filter-pink";
-              }
-              else if (iconScoreList[i] == 7.5) {
-                classOption = "filter-blue";
-              }
-              else if (iconScoreList[i] == 8) {
-                classOption = "filter-darkblue";
-              }
-              else if (iconScoreList[i] == 8.5) {
-                classOption = "filter-lightgreen";
-              }
-              else if (iconScoreList[i] == 9) {
-                classOption = "filter-green";
-              }
-              else if (iconScoreList[i] == 9.5) {
-                classOption = "filter-tan";
-              }
-              else if (iconScoreList[i] == 10) {
-                classOption = "filter-yellow";
-              }
-              entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:10%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + "transparent" + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;' onmouseover='loadImg(" + i + ")''>"
-              entryImageTmp = entryImageContainer + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>";
-              entryImages = entryImages + entryImageTmp;
-            }
-          }
-        document.getElementById("entryHolder").innerHTML = entryImages;
-      }
-      else {
-        iconList = [];
-        idList = [];
-        imageLoaded = [];
-        	for (i = 0; i < Object.keys(animeDict).length/*100*/; i++) {
-            iconList.push(Object.keys(animeDict)[i]);
-            idList.push(animeDict[Object.keys(animeDict)[i]].ALID);
-          }
-
-          //shuffleArray(iconList);
-
-        	var entryImages = "";
-        	var entryImageLink = "";
-        	for (i = 0; i < iconList.length; i++) {
-            animeKey = iconList[i];
-            entryImageLink = "icons/".concat(animeKey,"Square.svg");
-            //iconColor = "black";
-
-            classOption = "";
-            //color icon by score
-
-            if (animeDict[animeKey].Score <= 5 && animeDict[animeKey].Score != 0) {
-              classOption = "filter-darkred";
-            }
-            else if (animeDict[animeKey].Score == 5.5) {
-              classOption = "filter-pink";
-            }
-            else if (animeDict[animeKey].Score == 7.5) {
-              classOption = "filter-blue";
-            }
-            else if (animeDict[animeKey].Score == 8) {
-              classOption = "filter-darkblue";
-            }
-            else if (animeDict[animeKey].Score == 8.5) {
-              classOption = "filter-lightgreen";
-            }
-            else if (animeDict[animeKey].Score == 9) {
-              classOption = "filter-green";
-            }
-            else if (animeDict[animeKey].Score == 9.5) {
-              classOption = "filter-tan";
-            }
-            else if (animeDict[animeKey].Score == 10) {
-              classOption = "filter-yellow";
-            }
-
-
-            //color icon by genre
-            //classOption = classList[genreList.indexOf(animeDict[animeKey].Genre)];
-
-
-          entryImageContainer = "<div id='img" + animeDict[animeKey].ALID + "' style='float:left; width:10%;margin:0;min-width:50px;'><div id='inside-img-1' style='position:relative;'><div id='img1-border' class='' style='background:" + "transparent" + "'><div class='galleryImageHolder' style='position:relative; width:100%;padding: 0 0 100%;overflow:hidden;' onmouseover='loadImg(" + i + ")''>"
-          entryImageTmp = entryImageContainer + "<div id=cover" + animeDict[animeKey].ALID + " style='position:absolute; text-align:right; bottom: 10%;right: 10%;'>" + "</div></span>" + "<a href=" + "https://www.anilist.com/anime/" + animeDict[animeKey].ALID + "><img src='" + entryImageLink  + "' title='" + animeDict[animeKey].Name + "' class='" + classOption + "' _width='600' _height='600' style='position:absolute;border:0;width:100%;top:-0%;left:0%'></a></div></div></div></div>";
-          entryImages = entryImages + entryImageTmp;
-        }
-        document.getElementById("entryHolder").innerHTML = entryImages;
+    aniID = allRelated[0];
+    let fullEdgeList = await getRelatedMedia(aniID);
+    animeEdgeList = [];
+    test = fullEdgeList
+    for (f = 0; f < fullEdgeList.length; f++) {
+      tmpNodeID = fullEdgeList[f].node.id;
+      if (fullEdgeList[f].node.type == "ANIME" && /*fullEdgeList[f].relationType != "OTHER" && */ fullEdgeList[f].node.format != "MUSIC" && !excludeList.includes(tmpNodeID) && fullEdgeList[f].relationType != "CHARACTER" && !finalRelated.includes(tmpNodeID) && !allRelated.includes(tmpNodeID)) {
+        allRelated.push(tmpNodeID);
       }
     }
 
+    finalRelated.push(allRelated[0])
+    allRelated = allRelated.slice(1,allRelated.length);
+    console.log(allRelated.length);
+    await timer(2001);
+
+    if (allRelated.length > 0) {
+      getAllRelations();
+    }
+}
+
+relationList = []
+
+function runRelated(ir) {
+  allRelated = [animeDict[Object.keys(animeDict)[ir]].ALID];
+  finalRelated = [];
+  console.log("anime " + ir)
+  getAllRelations();
+  relationList = ([animeDict[Object.keys(animeDict)[ir]].ALID,finalRelated])
+}
+
+allRelatedList = []
+for (i = 0; i < Object.keys(animeDict).length; i++) {
+    for (j = 0; j < animeDict[Object.keys(animeDict)[i]].Related.length; j++) {
+        allRelatedList.push(animeDict[Object.keys(animeDict)[i]].Related[j])
+    }
+}
+let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) !== index)
 
 </script>
 </html>
