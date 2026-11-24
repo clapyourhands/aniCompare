@@ -16,17 +16,17 @@ main{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 320px}
 .map-wrap{position:relative;min-height:0;background:#e9eeeb;overflow:hidden}
 #map{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
 #map.dragging{cursor:grabbing}
-.land{fill:#f6f7f4;stroke:#d4ddd8;stroke-width:1;vector-effect:non-scaling-stroke}
-.region{fill:var(--fill);fill-opacity:.23;stroke:#fff;stroke-width:1.1;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill-opacity .12s,stroke .12s}
+.basemap-tile{pointer-events:none}.land{fill:#f6f7f4;stroke:#d4ddd8;stroke-width:1;vector-effect:non-scaling-stroke}
+.region{fill:var(--fill);fill-opacity:.18;stroke:#fff;stroke-width:1.1;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill-opacity .12s,stroke .12s}
 .region:hover,.region.active{fill:#994d36;fill-opacity:.68;stroke:#8f452e;stroke-width:2;outline:none}
-.region.has-custom-photo{fill:#cc6a39;fill-opacity:.55;stroke:#fff;}
+.region.has-custom-photo{fill:#cc6a39;fill-opacity:.42;stroke:#fff;}
 .region.has-custom-photo:hover,.region.has-custom-photo.active{fill:#cc6a39;fill-opacity:.76;stroke:#8f452e;stroke-width:2;outline:none}
 .dtla-underlay{fill:#000;fill-opacity:.25;stroke:none;pointer-events:none}
 .region:focus,.region:focus-visible{outline:none;stroke:#6c3524;stroke-width:2.5}
 .map-tools{position:absolute;top:14px;left:14px;display:flex;gap:6px}
 .map-tools button,.data-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.data-actions .action{margin-top:0}button.action:disabled{opacity:.45;cursor:not-allowed}.action{border:1px solid #d2d9d5;background:#fff;color:#33404a;border-radius:5px;padding:8px 10px;font:600 12px system-ui;cursor:pointer;box-shadow:0 2px 8px #20302a12}
 .map-tools button:hover,.action:hover{border-color:var(--accent);color:var(--accent)}
-.map-note{position:absolute;bottom:10px;left:14px;background:#ffffffd9;padding:6px 9px;border-radius:4px;font-size:10px;color:#65716d;pointer-events:none}
+.map-note{position:absolute;bottom:10px;left:14px;background:#ffffffdf;padding:6px 9px;border-radius:4px;font-size:10px;color:#65716d;pointer-events:none;z-index:3}.map-attribution{position:absolute;right:8px;bottom:8px;background:#ffffffdf;padding:4px 6px;border-radius:3px;font:10px/1.3 system-ui;color:#59645f;z-index:3}.map-attribution a{color:#465c68;text-decoration:none}.map-attribution a:hover{text-decoration:underline}
 aside{background:#fff;border-left:1px solid var(--line);padding:20px;overflow:auto}
 .kicker{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--muted)}
 #place-name{font:500 25px/1.1 Georgia,serif;margin:11px 0 7px}
@@ -49,17 +49,17 @@ input[type=search]{width:100%;padding:10px;border:1px solid var(--line);border-r
 <section class="map-wrap" id="map-wrap">
 <svg id="map" viewBox="0 0 1000 760" role="img" aria-label="Interactive map of Los Angeles neighborhoods">
 <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#dfe6e2" stroke-width="1"/></pattern></defs>
-<rect width="1000" height="760" fill="url(#grid)"/><g id="viewport"><g id="regions"></g></g>
+<rect width="1000" height="760" fill="#edf0ed"/><g id="viewport"><g id="basemap"></g><g id="regions"></g></g>
 </svg>
 <div class="map-tools"><button id="zin" aria-label="Zoom in">＋</button><button id="zout" aria-label="Zoom out">−</button><button id="reset">Reset view</button></div>
-<div class="map-note">Drag to pan · scroll or use + / − to zoom</div><div class="popup" id="popup"><strong id="pop-name"></strong><img id="pop-photo" alt=""></div>
+<div class="map-note">Drag to pan · scroll or use + / − to zoom</div><div class="map-attribution">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Map tiles © <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a></div><div class="popup" id="popup"><strong id="pop-name"></strong><img id="pop-photo" alt=""></div>
 </section>
 <aside>
 <div class="kicker">Selected neighborhood</div><h2 id="place-name">Explore the city</h2><div id="place-meta">Select a region on the map or use the neighborhood list.</div>
 <img id="photo" alt="Neighborhood photo placeholder" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23e9e4de'/%3E%3Ctext x='50%25' y='50%25' font-size='30' text-anchor='middle' fill='%23766b62'%3ENeighborhood Photo%3C/text%3E%3C/svg%3E">
 <div class="small">Replace each entry in <code>PHOTO_BY_NAME</code> with your own local image path, such as <code>images/venice.jpg</code>.</div>
 <div class="kicker">Find a neighborhood</div><input id="search" type="search" placeholder="Search neighborhoods…"><div id="list"></div>
-<div class="footer"><b>Boundary source:</b> LA Times Mapping LA neighborhood polygons, clipped to the City of Los Angeles. These are detailed, mapped neighborhood boundaries, not legally defined municipal neighborhood lines. The broad Downtown neighborhood is replaced by its Downtown subdistricts and a separately mapped Arts District. Downtown subdistricts are clipped to the original Downtown neighborhood outline so their outer edges cannot extend beyond it. The five DLANC subdistrict outlines are manually digitized approximations; the Arts District outline follows its organization's published approximate street bounds. These are neighborhood reference boundaries, not survey-grade legal boundaries.<br><br><b>Offline use:</b> On first use, load the boundary data while online; it is saved in this browser for subsequent offline visits. You can also import a GeoJSON file directly. This map has no online tile basemap and uses built-in vector styling.</div>
+<div class="footer"><b>Boundary source:</b> LA Times Mapping LA neighborhood polygons, clipped to the City of Los Angeles. These are detailed, mapped neighborhood boundaries, not legally defined municipal neighborhood lines. The broad Downtown neighborhood is replaced by its Downtown subdistricts and a separately mapped Arts District. Downtown subdistricts are clipped to the original Downtown neighborhood outline so their outer edges cannot extend beyond it. The five DLANC subdistrict outlines are manually digitized approximations; the Arts District outline follows its organization's published approximate street bounds. These are neighborhood reference boundaries, not survey-grade legal boundaries.<br><br><b>Street map:</b> Street names and road details load from CARTO basemap tiles (with OpenStreetMap data), so an internet connection is required to see the background map. Neighborhood boundaries and photos remain part of this file.</div>
 <div class="data-actions"><label class="action" for="file">Import GeoJSON boundaries</label><button class="action" id="export-geojson" type="button" disabled>Export current map as GeoJSON</button></div><input id="file" type="file" accept=".geojson,.json,application/geo+json,application/json">
 </aside>
 </main></div>
@@ -107,6 +107,7 @@ const PHOTO_BY_NAME={
 const DATA_URL="https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LA_Times_Neighborhoods/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson";
 const DB_NAME="la-neighborhood-atlas", STORE="boundary-data";
 const svg=document.getElementById("map"), viewport=document.getElementById("viewport"), regions=document.getElementById("regions");
+const MIN_SCALE=0.38, MAX_SCALE=12; // County-scale zoom-out floor; neighborhood data remains City of Los Angeles.
 let features=[], currentGeoJSON=null, selected=null, scale=1, tx=0, ty=0, dragging=false, start=null, bounds=null;
 const ns="http://www.w3.org/2000/svg";
 function dbOpen(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
@@ -115,16 +116,68 @@ async function cachePut(data){try{const db=await dbOpen();await new Promise((res
 function nameOf(f){const p=f.properties||{};return p.display_na||p.display_name||p.name||p.NAME||p.neighborhood||p.slug||"Neighborhood";}
 function collectCoords(g,out=[]){if(!g)return out;const walk=x=>{if(typeof x[0]==="number")out.push(x);else x.forEach(walk)};walk(g.coordinates);return out;}
 function allPoints(data){const a=[];(data.features||[]).forEach(f=>collectCoords(f.geometry,a));return a;}
-function project(lon,lat){return [(lon-bounds.minX)/(bounds.maxX-bounds.minX)*940+30,(bounds.maxY-lat)/(bounds.maxY-bounds.minY)*700+30];}
+function mercatorY(lat){const r=Math.max(-85.05112878,Math.min(85.05112878,lat))*Math.PI/180;return Math.log(Math.tan(Math.PI/4+r/2));}
+function project(lon,lat){
+ const mx=lon*Math.PI/180, my=mercatorY(lat);
+ return [bounds.offsetX+(mx-bounds.minMX)*bounds.unitScale,
+         bounds.offsetY+(bounds.maxMY-my)*bounds.unitScale];
+}
+
+function lonLatToTile(lon,lat,z){
+ const n=Math.pow(2,z), latRad=lat*Math.PI/180;
+ const x=(lon+180)/360*n;
+ const y=(1-Math.asinh(Math.tan(latRad))/Math.PI)/2*n;
+ return [x,y];
+}
+function tileYToLat(y,z){
+ const n=Math.pow(2,z);
+ return Math.atan(Math.sinh(Math.PI*(1-2*y/n)))*180/Math.PI;
+}
+function drawBasemap(){
+ const layer=document.getElementById("basemap");
+ layer.innerHTML="";
+ // z=12 gives readable neighborhood-scale road labels while keeping requests modest.
+ const z=12, min=lonLatToTile(bounds.minX,bounds.maxY,z), max=lonLatToTile(bounds.maxX,bounds.minY,z);
+ const x0=Math.floor(min[0])-1, x1=Math.floor(max[0])+1;
+ const y0=Math.floor(min[1])-1, y1=Math.floor(max[1])+1;
+ const frag=document.createDocumentFragment();
+ for(let x=x0;x<=x1;x++){
+  for(let y=y0;y<=y1;y++){
+   if(y<0||y>=Math.pow(2,z))continue;
+   const west=x/Math.pow(2,z)*360-180, east=(x+1)/Math.pow(2,z)*360-180;
+   const north=tileYToLat(y,z), south=tileYToLat(y+1,z);
+   const nw=project(west,north), se=project(east,south);
+   const im=document.createElementNS(ns,"image");
+   im.setAttribute("x",nw[0]); im.setAttribute("y",nw[1]);
+   im.setAttribute("width",se[0]-nw[0]); im.setAttribute("height",se[1]-nw[1]);
+   im.setAttribute("preserveAspectRatio","none");
+   im.setAttribute("href",`https://basemaps.cartocdn.com/light_all/${z}/${x}/${y}.png?key=cb1_5fic_1_966edb9fcf42e1d1d2e1297b`);
+   im.setAttribute("crossorigin","anonymous");
+   im.setAttribute("class","basemap-tile");
+   im.addEventListener("error",()=>{im.setAttribute("opacity","0");});
+   frag.appendChild(im);
+  }
+ }
+ layer.appendChild(frag);
+}
 function pathFor(g){let d="";function ring(coords){coords.forEach((c,i)=>{const [x,y]=project(c[0],c[1]);d+=(i?"L":"M")+x.toFixed(2)+" "+y.toFixed(2)+" ";});d+="Z ";}function poly(p){p.forEach(ring)}if(g.type==="Polygon")poly(g.coordinates);else if(g.type==="MultiPolygon")g.coordinates.forEach(poly);return d;}
 function setView(){viewport.setAttribute("transform",`translate(${tx} ${ty}) scale(${scale})`);}
 function fit(){scale=1;tx=0;ty=0;setView();}
 function photoFor(n){return PHOTO_BY_NAME[n]||DEFAULT_PHOTO;}
 function hasCustomPhoto(n){const photo=PHOTO_BY_NAME[n];return !!photo&&photo!==DEFAULT_PHOTO;}
 function selectFeature(f,el){if(selected)selected.classList.remove("active");selected=el;el.classList.add("active");const n=nameOf(f);document.getElementById("place-name").textContent=n;document.getElementById("place-meta").textContent=(f.properties&&f.properties.dlancDistrict)?"Downtown Los Angeles Neighborhood Council subdistrict · digitized from its published boundary map":"LA Times Mapping LA neighborhood boundary";const src=photoFor(n);document.getElementById("photo").src=src;document.getElementById("photo").alt=n+" photo";document.getElementById("pop-name").textContent=n;document.getElementById("pop-photo").src=src;document.getElementById("pop-photo").alt=n+" photo";const bb=el.getBBox();const pt=svg.createSVGPoint();pt.x=bb.x+bb.width/2;pt.y=bb.y+bb.height/2;const screen=pt.matrixTransform(viewport.getScreenCTM());const wrap=document.getElementById("map-wrap").getBoundingClientRect();const pop=document.getElementById("popup");pop.style.left=Math.max(12,Math.min(wrap.width-220,screen.x-wrap.left+12))+"px";pop.style.top=Math.max(55,Math.min(wrap.height-150,screen.y-wrap.top-55))+"px";pop.style.display="block";document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.name===n));}
-function render(data){currentGeoJSON=data;document.getElementById("export-geojson").disabled=false;const all=data.features||[];features=all.filter(f=>!(f.properties&&f.properties.dtlaBaseFill));if(!features.length)throw Error("No polygon features found in this GeoJSON.");const pts=allPoints({features:all.filter(f=>!(f.properties&&f.properties.dlancDistrict)&&!(f.properties&&f.properties.dtlaBaseFill))});bounds={minX:Math.min(...pts.map(p=>p[0])),maxX:Math.max(...pts.map(p=>p[0])),minY:Math.min(...pts.map(p=>p[1])),maxY:Math.max(...pts.map(p=>p[1]))};regions.innerHTML="";const underlay=all.find(f=>f.properties&&f.properties.dtlaBaseFill);if(underlay){const bg=document.createElementNS(ns,"path");bg.setAttribute("d",pathFor(underlay.geometry));bg.setAttribute("class","dtla-underlay");regions.appendChild(bg);
+function render(data){currentGeoJSON=data;document.getElementById("export-geojson").disabled=false;const all=data.features||[];features=all.filter(f=>!(f.properties&&f.properties.dtlaBaseFill));if(!features.length)throw Error("No polygon features found in this GeoJSON.");const pts=allPoints({features:all.filter(f=>!(f.properties&&f.properties.dlancDistrict)&&!(f.properties&&f.properties.dtlaBaseFill))});if(!pts.length)throw Error("The GeoJSON contains no usable neighborhood coordinates.");
+let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+for(const p of pts){if(!Number.isFinite(p[0])||!Number.isFinite(p[1]))continue;minX=Math.min(minX,p[0]);maxX=Math.max(maxX,p[0]);minY=Math.min(minY,p[1]);maxY=Math.max(maxY,p[1]);}
+if(!Number.isFinite(minX)||maxX===minX||maxY===minY)throw Error("The GeoJSON has invalid or zero-size map bounds.");
+const minMX=minX*Math.PI/180,maxMX=maxX*Math.PI/180,minMY=mercatorY(minY),maxMY=mercatorY(maxY);
+const unitScale=Math.min(940/(maxMX-minMX),700/(maxMY-minMY));
+bounds={minX,maxX,minY,maxY,minMX,maxMX,minMY,maxMY,unitScale,
+ offsetX:30+(940-(maxMX-minMX)*unitScale)/2,
+ offsetY:30+(700-(maxMY-minMY)*unitScale)/2};
+drawBasemap();regions.innerHTML="";const underlay=all.find(f=>f.properties&&f.properties.dtlaBaseFill);if(underlay){const bg=document.createElementNS(ns,"path");bg.setAttribute("d",pathFor(underlay.geometry));bg.setAttribute("class","dtla-underlay");regions.appendChild(bg);
  const defs=svg.querySelector("defs");let oldClip=document.getElementById("dtlaClip");if(oldClip)oldClip.remove();const cp=document.createElementNS(ns,"clipPath");cp.setAttribute("id","dtlaClip");const cpPath=document.createElementNS(ns,"path");cpPath.setAttribute("d",pathFor(underlay.geometry));cp.appendChild(cpPath);defs.appendChild(cp);
- }const names=[];features.forEach(f=>{const n=nameOf(f);names.push(n);const el=document.createElementNS(ns,"path");el.setAttribute("d",pathFor(f.geometry));if(f.properties&&f.properties.dlancDistrict&&underlay)el.setAttribute("clip-path","url(#dtlaClip)");el.setAttribute("class",hasCustomPhoto(n)?"region has-custom-photo":"region");el.setAttribute("tabindex","0");el.setAttribute("role","button");el.setAttribute("aria-label",n);el.addEventListener("click",e=>{e.stopPropagation();selectFeature(f,el);});el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectFeature(f,el);}});el.addEventListener("mouseenter",()=>{document.getElementById("place-name").textContent=n;document.getElementById("place-meta").textContent=(f.properties&&f.properties.dlancDistrict)?"Downtown Los Angeles Neighborhood Council subdistrict · digitized from its published boundary map":"LA Times Mapping LA neighborhood boundary";const previewPhoto=document.getElementById("photo");previewPhoto.src=photoFor(n);previewPhoto.alt=n+" photo";});regions.appendChild(el);f.__el=el;});const unique=[...new Set(names)].sort((a,b)=>a.localeCompare(b));const list=document.getElementById("list");list.innerHTML="";unique.forEach(n=>{const b=document.createElement("button");b.className="chip";b.textContent=n;b.dataset.name=n;b.onclick=()=>{const f=features.find(x=>nameOf(x)===n);if(f){selectFeature(f,f.__el);const bb=f.__el.getBBox();scale=Math.min(6,Math.max(2,Math.min(680/(bb.width||1),880/(bb.height||1))));tx=500-(bb.x+bb.width/2)*scale;ty=380-(bb.y+bb.height/2)*scale;setView();}};list.appendChild(b);});document.getElementById("status").textContent=`${unique.length} mapped neighborhood names loaded · ${features.length} boundary features · ${dbReady?"saved for offline use":"ready"}`;fit();}
+ }const names=[];features.forEach(f=>{const n=nameOf(f);names.push(n);const el=document.createElementNS(ns,"path");el.setAttribute("d",pathFor(f.geometry));if(f.properties&&f.properties.dlancDistrict&&underlay)el.setAttribute("clip-path","url(#dtlaClip)");el.setAttribute("class",hasCustomPhoto(n)?"region has-custom-photo":"region");el.setAttribute("tabindex","0");el.setAttribute("role","button");el.setAttribute("aria-label",n);el.addEventListener("click",e=>{e.stopPropagation();selectFeature(f,el);});el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectFeature(f,el);}});el.addEventListener("mouseenter",()=>{document.getElementById("place-name").textContent=n;document.getElementById("place-meta").textContent=(f.properties&&f.properties.dlancDistrict)?"Downtown Los Angeles Neighborhood Council subdistrict · digitized from its published boundary map":"LA Times Mapping LA neighborhood boundary";const previewPhoto=document.getElementById("photo");previewPhoto.src=photoFor(n);previewPhoto.alt=n+" photo";});regions.appendChild(el);f.__el=el;});const unique=[...new Set(names)].sort((a,b)=>a.localeCompare(b));const list=document.getElementById("list");list.innerHTML="";unique.forEach(n=>{const b=document.createElement("button");b.className="chip";b.textContent=n;b.dataset.name=n;b.onclick=()=>{const f=features.find(x=>nameOf(x)===n);if(f){selectFeature(f,f.__el);const bb=f.__el.getBBox();scale=Math.min(MAX_SCALE,Math.max(MIN_SCALE,Math.min(6,Math.max(2,Math.min(680/(bb.width||1),880/(bb.height||1))))));tx=500-(bb.x+bb.width/2)*scale;ty=380-(bb.y+bb.height/2)*scale;setView();}};list.appendChild(b);});document.getElementById("status").textContent=`${unique.length} mapped neighborhood names loaded · ${features.length} boundary features · ${dbReady?"saved for offline use":"ready"}`;fit();}
 let dbReady=false;
 async function init(){
  try{
@@ -165,9 +218,9 @@ document.getElementById("export-geojson").addEventListener("click",()=>{
 });
 
 document.getElementById("search").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll(".chip").forEach(c=>c.hidden=!c.textContent.toLowerCase().includes(q));});
-function zoom(f){const cx=500,cy=380;scale=Math.max(.7,Math.min(12,scale*f));tx=cx-(cx-tx)*f;ty=cy-(cy-ty)*f;setView();}
+function zoom(f){const cx=500,cy=380;const next=Math.max(MIN_SCALE,Math.min(MAX_SCALE,scale*f));const actual=next/scale;scale=next;tx=cx-(cx-tx)*actual;ty=cy-(cy-ty)*actual;setView();}
 document.getElementById("zin").onclick=()=>zoom(1.35);document.getElementById("zout").onclick=()=>zoom(1/1.35);document.getElementById("reset").onclick=()=>{fit();document.getElementById("popup").style.display="none";};
-svg.addEventListener("wheel",e=>{e.preventDefault();const f=e.deltaY<0?1.12:1/1.12;const rect=svg.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*1000,y=(e.clientY-rect.top)/rect.height*760;scale=Math.max(.7,Math.min(12,scale*f));tx=x-(x-tx)*f;ty=y-(y-ty)*f;setView();},{passive:false});
+svg.addEventListener("wheel",e=>{e.preventDefault();const f=e.deltaY<0?1.12:1/1.12;const rect=svg.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*1000,y=(e.clientY-rect.top)/rect.height*760;const next=Math.max(MIN_SCALE,Math.min(MAX_SCALE,scale*f));const actual=next/scale;scale=next;tx=x-(x-tx)*actual;ty=y-(y-ty)*actual;setView();},{passive:false});
 let suppressMapClick=false;
 function clearSelection(){
  if(selected){selected.classList.remove("active");selected=null;}
