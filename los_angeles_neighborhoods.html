@@ -44,7 +44,7 @@ input[type=search]{width:100%;padding:10px;border:1px solid var(--line);border-r
 </head>
 <body>
 <div class="app">
-<header><div><div class="eyebrow">Neighborhood atlas · California</div><h1>Los Angeles, block by block</h1><div class="sub">Explore the city's neighborhood boundaries, with five Downtown subdistricts replacing the broad Downtown region.</div></div><div class="status" id="status">Loading neighborhood boundary data…</div></header>
+<header><div><div class="eyebrow">Neighborhood atlas · California</div><h1>Los Angeles Neighborhoods</h1><div class="sub">Explore the city's neighborhood boundaries</div></div><div class="status" id="status">Loading neighborhood boundary data…</div></header>
 <main>
 <section class="map-wrap" id="map-wrap">
 <svg id="map" viewBox="0 0 1000 760" role="img" aria-label="Interactive map of Los Angeles neighborhoods">
@@ -57,7 +57,6 @@ input[type=search]{width:100%;padding:10px;border:1px solid var(--line);border-r
 <aside>
 <div class="kicker">Selected neighborhood</div><h2 id="place-name">Explore the city</h2><div id="place-meta">Select a region on the map or use the neighborhood list.</div>
 <img id="photo" alt="Neighborhood photo placeholder" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23e9e4de'/%3E%3Ctext x='50%25' y='50%25' font-size='30' text-anchor='middle' fill='%23766b62'%3ENeighborhood Photo%3C/text%3E%3C/svg%3E">
-<div class="small">Replace each entry in <code>PHOTO_BY_NAME</code> with your own local image path, such as <code>images/venice.jpg</code>.</div>
 <div class="kicker">Find a neighborhood</div><input id="search" type="search" placeholder="Search neighborhoods…"><div id="list"></div>
 <div class="footer"><b>Boundary source:</b> LA Times Mapping LA neighborhood polygons, clipped to the City of Los Angeles. These are detailed, mapped neighborhood boundaries, not legally defined municipal neighborhood lines. The broad Downtown neighborhood is replaced by its Downtown subdistricts and a separately mapped Arts District. Downtown subdistricts are clipped to the original Downtown neighborhood outline so their outer edges cannot extend beyond it. The five DLANC subdistrict outlines are manually digitized approximations; the Arts District outline follows its organization's published approximate street bounds. These are neighborhood reference boundaries, not survey-grade legal boundaries.<br><br><b>Street map:</b> Street names and road details load from CARTO basemap tiles (with OpenStreetMap data), so an internet connection is required to see the background map. Neighborhood boundaries and photos remain part of this file.</div>
 <div class="data-actions"><label class="action" for="file">Import GeoJSON boundaries</label><button class="action" id="export-geojson" type="button" disabled>Export current map as GeoJSON</button></div><input id="file" type="file" accept=".geojson,.json,application/geo+json,application/json">
